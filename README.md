@@ -105,7 +105,7 @@ The repository root is the web root — no build step is needed.
 3. Branch: `master` (or `main`), folder: **`/ (root)`**, then **Save**.
 4. Wait about a minute. The site is published at `https://YOUR_USERNAME.github.io/cainiao-global-coupons/`. Check `/en/` and `/ja/` too.
 5. The committed `.nojekyll` file disables Jekyll processing, so `_headers` and every other file is published as-is.
-6. Asset links are root-absolute (`/assets/...`). The project-page subpath works for preview, but for production either use a `<USERNAME>.github.io`-named repository or bind the **exact** HTTPS domain configured in `site-data.json` via **Settings → Pages → Custom domain** (run `tools/set_domain.py` first).
+6. Internal links and assets use relative paths (`assets/...`, `../en/`), so the site works both at the github.io project subpath and at a custom domain. For SEO, still bind the **exact** HTTPS domain configured in `site-data.json` via **Settings → Pages → Custom domain** (run `tools/set_domain.py` first), since canonical/hreflang/sitemap URLs are absolute.
 7. Once the final domain serves correctly, verify `https://deals.yourdomain.com/sitemap.xml` and `/robots.txt`, then add the domain to Google Search Console and submit the sitemap. Bing Webmaster Tools is optional.
 
 Future pushes to the selected branch automatically redeploy the site.

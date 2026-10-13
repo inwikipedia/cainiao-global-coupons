@@ -40,7 +40,7 @@ git push -u origin master
 3. 分支选 `master`（或 `main`），目录选 **`/ (root)`**，点击 **Save**。
 4. 等待约 1 分钟，站点发布在 `https://你的用户名.github.io/cainiao-global-coupons/`，顺便检查 `/en/`、`/ja/` 等子页面。
 5. 仓库中的 `.nojekyll` 文件会关闭 Jekyll 处理，`_headers` 等所有文件都会原样发布。
-6. 页面资源使用根绝对路径（`/assets/...`），github.io 子路径仅适合预览；正式使用请在 **Settings → Pages → Custom domain** 绑定与 `site-data.json` 一致的自定义域名（绑定前先运行 `set_domain.py`）。
+6. 页面内部链接与资源均使用相对路径（`assets/...`、`../en/`），github.io 子路径和自定义域名根路径都能正常访问；但 canonical、hreflang、sitemap 中的 URL 仍是绝对地址，正式上线前请先运行 `set_domain.py`，再在 **Settings → Pages → Custom domain** 绑定与 `site-data.json` 一致的自定义域名。
 7. 正式域名上线后，检查 `/en/`、`/ja/`、`/th/`、`/ru/`、`/fr-ca/`、`/sitemap.xml`，并在 [Google Search Console](https://search.google.com/search-console/about) 提交 `https://你的域名/sitemap.xml`，也可以提交到 Bing Webmaster Tools。
 
 **以后向该分支推送更新，GitHub Pages 会自动重新部署。**

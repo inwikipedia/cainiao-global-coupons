@@ -96,8 +96,13 @@ def svg_search():return '<svg width="17" height="17" viewBox="0 0 24 24" fill="n
 
 def build(locale):
  t=T[locale]; current=PATHS[locale]; pageurl=u(locale)
+ # Relative paths keep the site working both at a domain root and under a
+ # hosting subpath such as https://user.github.io/repo/
+ P='' if locale=='zh' else '../'
+ home='./' if locale=='zh' else '../'
+ def rel(l):return home if l=='zh' else P+PATHS[l].lstrip('/')
  alt='\n'.join(f'<link rel="alternate" hreflang="{LANG[l]}" href="{h(u(l))}">' for l in LOCALES)+'\n<link rel="alternate" hreflang="x-default" href="'+h(u('en'))+'">'
- opts=''.join(f'<option value="{h(PATHS[l])}" {"selected" if l==locale else ""}>{h(LABEL[l])}</option>' for l in LOCALES)
+ opts=''.join(f'<option value="{h(rel(l))}" {"selected" if l==locale else ""}>{h(LABEL[l])}</option>' for l in LOCALES)
  cards='\n'.join(f'''<article class="country-card" id="{h(c['slug'])}" data-search="{h(c['synonyms'])}">
  <div class="card-top"><div><span class="flag" aria-hidden="true">{c['flag']}</span><h3 class="dest">{h(c[locale])}</h3></div><span class="tag">{h(t['discount_tag'])}</span></div>
  <div class="code-label">{h(t['code_label'])}</div><div class="code-row"><code class="code">{h(c['code'])}</code><button type="button" class="copy" data-copy="{h(c['code'])}" aria-label="{h(t['copy']+' '+c['code'])}"><span aria-hidden="true">⧉</span><span class="copy-text">{h(t['copy'])}</span></button></div>
@@ -129,15 +134,15 @@ def build(locale):
 <meta property="og:url" content="{h(pageurl)}"><meta property="og:locale" content="{h(LANG[locale].replace('-','_'))}">
 <meta property="og:image" content="{h(BASE+'/assets/social-card.png')}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="{P}assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{P}assets/style.css">
 <script type="application/ld+json">{data}</script>
-<script src="/assets/app.js" defer></script>
+<script src="{P}assets/app.js" defer></script>
 </head>
 <body data-copied="{h(t['copied'])}" data-copy-failed="{h(t['copy_failed'])}">
 <div class="topline"></div>
 <header class="wrap"><nav class="nav" aria-label="Main navigation">
-<a class="brand" href="/"><span class="brand-icon" aria-hidden="true">✦</span><span class="brand-name">Ship<span style="color:#f36a35">Saver</span><small>CAINIAO CODE GUIDE</small></span></a>
+<a class="brand" href="{home}"><span class="brand-icon" aria-hidden="true">✦</span><span class="brand-name">Ship<span style="color:#f36a35">Saver</span><small>CAINIAO CODE GUIDE</small></span></a>
 <div class="nav-right"><a class="nav-link" href="#codes">{h(t['nav_codes'])}</a><a class="nav-link" href="#how">{h(t['nav_how'])}</a>
 <label for="lang-switch" class="sr-only">Language</label><select class="language" id="lang-switch" aria-label="Language">{opts}</select></div></nav></header>
 <main>
