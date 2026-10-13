@@ -1,0 +1,28 @@
+# Cainiao Shipping Promo Code Guide — Independent Directory
+
+> These promotional codes and the advertised 15% shipping discount are publisher-supplied, not independently verified. This site is not officially affiliated with Cainiao. Confirm all savings at checkout.
+
+## Destinations and codes
+
+- Australia: `AUONLY`
+- United States: `USONLY`
+- Canada: `CAONLY`
+- Japan: `JPONLY`
+- Singapore: `SG5BSE`
+- Thailand: `THONLY`
+- Russia: `RUONLY`
+
+## Language editions
+
+- 简体中文: https://YOUR-DOMAIN.example/
+- English: https://YOUR-DOMAIN.example/en/
+- 日本語: https://YOUR-DOMAIN.example/ja/
+- ไทย: https://YOUR-DOMAIN.example/th/
+- Русский: https://YOUR-DOMAIN.example/ru/
+- Français (CA): https://YOUR-DOMAIN.example/fr-ca/
+
+## Reference and scope
+
+- Official Cainiao consolidated shipping information: https://shipping.conso.cainiao.com/
+- Content last updated: 2026-10-13 (not a date of coupon verification)
+- No purchases, payments or shipping orders are processed on this independent guide.
