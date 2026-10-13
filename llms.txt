@@ -14,12 +14,12 @@
 
 ## Language editions
 
-- 简体中文: https://YOUR-DOMAIN.example/
-- English: https://YOUR-DOMAIN.example/en/
-- 日本語: https://YOUR-DOMAIN.example/ja/
-- ไทย: https://YOUR-DOMAIN.example/th/
-- Русский: https://YOUR-DOMAIN.example/ru/
-- Français (CA): https://YOUR-DOMAIN.example/fr-ca/
+- 简体中文: https://cainiao-coupons.biggemedtech.com/
+- English: https://cainiao-coupons.biggemedtech.com/en/
+- 日本語: https://cainiao-coupons.biggemedtech.com/ja/
+- ไทย: https://cainiao-coupons.biggemedtech.com/th/
+- Русский: https://cainiao-coupons.biggemedtech.com/ru/
+- Français (CA): https://cainiao-coupons.biggemedtech.com/fr-ca/
 
 ## Reference and scope
 
