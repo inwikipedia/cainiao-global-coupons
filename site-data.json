@@ -4,12 +4,89 @@
   "official_info_url": "https://shipping.conso.cainiao.com/",
   "discount_reference": "85折 / 15% off (user-submitted, unverified)",
   "destinations": [
-    {"slug":"australia","flag":"🇦🇺","code":"AUONLY","zh":"澳大利亚","en":"Australia","ja":"オーストラリア","th":"ออสเตรเลีย","ru":"Австралия","fr-ca":"Australie","synonyms":"AU Aussie 澳大利亚 澳洲"},
-    {"slug":"united-states","flag":"🇺🇸","code":"USONLY","zh":"美国","en":"United States","ja":"アメリカ","th":"สหรัฐอเมริกา","ru":"США","fr-ca":"États-Unis","synonyms":"US USA America 美国 美國"},
-    {"slug":"canada","flag":"🇨🇦","code":"CAONLY","zh":"加拿大","en":"Canada","ja":"カナダ","th":"แคนาดา","ru":"Канада","fr-ca":"Canada","synonyms":"CA 加拿大"},
-    {"slug":"japan","flag":"🇯🇵","code":"JPONLY","zh":"日本","en":"Japan","ja":"日本","th":"ญี่ปุ่น","ru":"Япония","fr-ca":"Japon","synonyms":"JP 日本"},
-    {"slug":"singapore","flag":"🇸🇬","code":"SG5BSE","zh":"新加坡","en":"Singapore","ja":"シンガポール","th":"สิงคโปร์","ru":"Сингапур","fr-ca":"Singapour","synonyms":"SG 新加坡"},
-    {"slug":"thailand","flag":"🇹🇭","code":"THONLY","zh":"泰国","en":"Thailand","ja":"タイ","th":"ประเทศไทย","ru":"Таиланд","fr-ca":"Thaïlande","synonyms":"TH 泰国 泰國"},
-    {"slug":"russia","flag":"🇷🇺","code":"RUONLY","zh":"俄罗斯","en":"Russia","ja":"ロシア","th":"รัสเซีย","ru":"Россия","fr-ca":"Russie","synonyms":"RU 俄罗斯 俄羅斯"}
+    {
+      "slug": "australia",
+      "flag": "🇦🇺",
+      "code": "AUONLY",
+      "zh": "澳大利亚",
+      "en": "Australia",
+      "ja": "オーストラリア",
+      "th": "ออสเตรเลีย",
+      "ru": "Австралия",
+      "fr-ca": "Australie",
+      "synonyms": "AU Aussie 澳大利亚 澳洲"
+    },
+    {
+      "slug": "united-states",
+      "flag": "🇺🇸",
+      "code": "USONLY",
+      "zh": "美国",
+      "en": "United States",
+      "ja": "アメリカ",
+      "th": "สหรัฐอเมริกา",
+      "ru": "США",
+      "fr-ca": "États-Unis",
+      "synonyms": "US USA America 美国 美國"
+    },
+    {
+      "slug": "canada",
+      "flag": "🇨🇦",
+      "code": "CAONLY",
+      "zh": "加拿大",
+      "en": "Canada",
+      "ja": "カナダ",
+      "th": "แคนาดา",
+      "ru": "Канада",
+      "fr-ca": "Canada",
+      "synonyms": "CA 加拿大"
+    },
+    {
+      "slug": "japan",
+      "flag": "🇯🇵",
+      "code": "JPONLY",
+      "zh": "日本",
+      "en": "Japan",
+      "ja": "日本",
+      "th": "ญี่ปุ่น",
+      "ru": "Япония",
+      "fr-ca": "Japon",
+      "synonyms": "JP 日本"
+    },
+    {
+      "slug": "singapore",
+      "flag": "🇸🇬",
+      "code": "SG5BSE",
+      "zh": "新加坡",
+      "en": "Singapore",
+      "ja": "シンガポール",
+      "th": "สิงคโปร์",
+      "ru": "Сингапур",
+      "fr-ca": "Singapour",
+      "synonyms": "SG 新加坡"
+    },
+    {
+      "slug": "thailand",
+      "flag": "🇹🇭",
+      "code": "THONLY",
+      "zh": "泰国",
+      "en": "Thailand",
+      "ja": "タイ",
+      "th": "ประเทศไทย",
+      "ru": "Таиланд",
+      "fr-ca": "Thaïlande",
+      "synonyms": "TH 泰国 泰國"
+    },
+    {
+      "slug": "russia",
+      "flag": "🇷🇺",
+      "code": "RUONLY",
+      "zh": "俄罗斯",
+      "en": "Russia",
+      "ja": "ロシア",
+      "th": "รัสเซีย",
+      "ru": "Россия",
+      "fr-ca": "Russie",
+      "synonyms": "RU 俄罗斯 俄羅斯"
+    }
   ]
 }
