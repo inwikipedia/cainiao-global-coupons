@@ -33,21 +33,21 @@ Features: destination search, one-click copy, responsive cards, usage instructio
 
 ```text
 cainiao-global-coupons/
-├── public/                   # Deploy THIS directory on Cloudflare Pages
-│   ├── index.html            # / (zh-CN)
-│   ├── en/index.html         # /en/
-│   ├── ja/index.html         # /ja/
-│   ├── th/index.html         # /th/
-│   ├── ru/index.html         # /ru/
-│   ├── fr-ca/index.html      # /fr-ca/
-│   ├── assets/style.css
-│   ├── assets/app.js
-│   ├── assets/favicon.svg
-│   ├── assets/social-card.png
-│   ├── _headers
-│   ├── robots.txt
-│   ├── sitemap.xml
-│   └── llms.txt
+├── index.html                # / (zh-CN) — repository root IS the web root
+├── en/index.html             # /en/
+├── ja/index.html             # /ja/
+├── th/index.html             # /th/
+├── ru/index.html             # /ru/
+├── fr-ca/index.html          # /fr-ca/
+├── assets/style.css
+├── assets/app.js
+├── assets/favicon.svg
+├── assets/social-card.png
+├── _headers                  # Static HTTP response headers
+├── .nojekyll                 # Tells GitHub Pages to publish files as-is
+├── robots.txt
+├── sitemap.xml
+├── llms.txt
 ├── site-data.json            # Codes, names, source and domain (editable)
 ├── tools/build.py            # Optional offline standard-library generator
 ├── tools/set_domain.py       # Configure production domain and regenerate HTML
@@ -57,7 +57,7 @@ cainiao-global-coupons/
 └── README.md
 ```
 
-**Static production does not run Python.** Python is only an optional local authoring convenience. `public/` already includes pre-rendered HTML and all browser assets.
+**Static production does not run Python.** Python is only an optional local authoring convenience. The repository root already contains the pre-rendered HTML and all browser assets, so it can be published directly on GitHub Pages.
 
 ## First: set the actual domain (required for search indexing)
 
@@ -71,15 +71,15 @@ python tools/set_domain.py https://deals.yourdomain.com
 
 The script updates `site-data.json` and regenerates all six pages, `sitemap.xml` and `robots.txt`. You can run it again with another domain later.
 
-Without Python, replace `https://YOUR-DOMAIN.example` in every file under `public/` and change `site_url` in `site-data.json` manually. Do not leave the placeholder in production.
+Without Python, replace `https://YOUR-DOMAIN.example` in every generated HTML/XML file at the repository root and change `site_url` in `site-data.json` manually. Do not leave the placeholder in production.
 
 ## Preview locally (optional)
 
 ```powershell
-python -m http.server 8080 --directory public
+python -m http.server 8080
 ```
 
-Open `http://localhost:8080/` or `http://localhost:8080/en/`. Opening `public/index.html` as a `file://` path is not recommended because absolute asset links begin with `/` (they work correctly on a web host).
+Run it from the repository root (the folder containing `index.html`). Open `http://localhost:8080/` or `http://localhost:8080/en/`. Opening `index.html` as a `file://` path is not recommended because absolute asset links begin with `/` (they work correctly on a web host).
 
 ## Upload to GitHub
 
@@ -89,26 +89,39 @@ Create a **new, empty** GitHub repository, e.g. `cainiao-global-coupons`, then f
 git init
 git add .
 git commit -m "Launch multilingual static promo landing site"
-git branch -M main
+git branch -M master
 git remote add origin https://github.com/YOUR_USERNAME/cainiao-global-coupons.git
-git push -u origin main
+git push -u origin master
 ```
 
-Replace `YOUR_USERNAME`. GitHub's **Add file → Upload files** also works if you prefer uploading without the command line; preserve the folders and `public/` directory.
+Replace `YOUR_USERNAME`. GitHub's **Add file → Upload files** also works if you prefer uploading without the command line; preserve the folder structure.
 
-## Deploy on Cloudflare Pages (recommended)
+## Deploy on GitHub Pages (recommended)
 
-1. In the Cloudflare dashboard open **Workers & Pages → Create application → Pages → Connect to Git** and connect your new GitHub repository.
-2. Set production branch to `main` and **Framework preset** to `None`.
-3. Set **Build command** to `exit 0` (or leave empty if allowed) and **Build output directory** to **`public`**. Do not publish the repository root.
+The repository root is the web root — no build step is needed.
+
+1. Push the repository to GitHub (above), then open **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
+3. Branch: `master` (or `main`), folder: **`/ (root)`**, then **Save**.
+4. Wait about a minute. The site is published at `https://YOUR_USERNAME.github.io/cainiao-global-coupons/`. Check `/en/` and `/ja/` too.
+5. The committed `.nojekyll` file disables Jekyll processing, so `_headers` and every other file is published as-is.
+6. Asset links are root-absolute (`/assets/...`). The project-page subpath works for preview, but for production either use a `<USERNAME>.github.io`-named repository or bind the **exact** HTTPS domain configured in `site-data.json` via **Settings → Pages → Custom domain** (run `tools/set_domain.py` first).
+7. Once the final domain serves correctly, verify `https://deals.yourdomain.com/sitemap.xml` and `/robots.txt`, then add the domain to Google Search Console and submit the sitemap. Bing Webmaster Tools is optional.
+
+Future pushes to the selected branch automatically redeploy the site.
+
+## Alternative: deploy on Cloudflare Pages
+
+1. In the Cloudflare dashboard open **Workers & Pages → Create application → Pages → Connect to Git** and connect the repository.
+2. Set production branch to `master` and **Framework preset** to `None`.
+3. Set **Build command** to `exit 0` (or leave empty if allowed) and **Build output directory** to **`/`** (the repository root — it now contains `index.html` directly).
 4. Click **Save and Deploy**. Confirm that the temporary `*.pages.dev` URL works, including `/en/` and `/ja/`.
 5. Open the Pages project → **Custom domains → Set up a domain**. Add the *exact* domain configured in `site-data.json`, e.g. `deals.yourdomain.com`. Complete Cloudflare's DNS verification instructions.
-6. After the custom domain serves correctly, visit `https://deals.yourdomain.com/sitemap.xml` and `https://deals.yourdomain.com/robots.txt`.
-7. Add the domain to Google Search Console; submit the sitemap. Consider Bing Webmaster Tools as well.
+6. After the custom domain serves correctly, visit `https://deals.yourdomain.com/sitemap.xml` and `https://deals.yourdomain.com/robots.txt`, then submit the sitemap in Google Search Console.
 
 For an **apex domain** (e.g. `yourdomain.com`), the domain must be on the Cloudflare zone with the appropriate name servers. For a **subdomain** such as `deals.yourdomain.com`, follow the CNAME and ownership instructions presented by the Pages custom-domain setup. **Adding DNS alone is not enough: attach the domain in Pages first**.
 
-Future GitHub pushes automatically redeploy the website. Cloudflare Pages' free-tier quotas and domain registration fees are separate; check the current pricing if traffic is high.
+Cloudflare Pages' free-tier quotas and domain registration fees are separate; check the current pricing if traffic is high.
 
 Official deployment documentation: https://developers.cloudflare.com/pages/framework-guides/deploy-anything/ and https://developers.cloudflare.com/pages/configuration/custom-domains/
 
@@ -116,7 +129,7 @@ Official deployment documentation: https://developers.cloudflare.com/pages/frame
 
 - Codes, country names, content date, authoritative service link and canonical domain are in `site-data.json`. Update there and run `python tools/build.py`.
 - The text of the six locales lives in the `T` dictionary in `tools/build.py`, near the top. Edit locale strings, then run the generator.
-- The public HTML files are ready to edit directly, but regeneration overwrites such manual edits. Do not edit generated HTML and then run the generator without porting edits to its templates.
+- The generated HTML files at the repository root are ready to edit directly, but regeneration overwrites such manual edits. Do not edit generated HTML and then run the generator without porting edits to its templates.
 - When a coupon is **actually verified** at checkout, record its destination, timestamp, eligibility and evidence. Update only the corresponding wording rather than asserting that all codes were validated.
 - Keep page content and structured data consistent; `dateModified` means the page was updated, not necessarily that the coupons were checked.
 

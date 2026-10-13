@@ -2,7 +2,7 @@
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
-out=ROOT/'public/assets/social-card.png'
+out=ROOT/'assets/social-card.png'
 w,h=1200,630
 im=Image.new('RGB',(w,h),'#fff6ef')
 p=im.load()

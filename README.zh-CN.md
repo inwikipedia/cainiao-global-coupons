@@ -4,7 +4,7 @@
 
 **重要说明：** 优惠码和“85折”力度来自网站发布者提供的信息，尚未独立核实官方活动公告、有效期、适用地区、用户门槛与叠加规则。站点不能自称菜鸟官方授权或承诺折扣一定生效，使用前请在菜鸟实际结算页核验。
 
-## 最快上线（GitHub → Cloudflare Pages）
+## 最快上线（GitHub Pages 直接发布）
 
 ### 1. 配置域名（上线前必须操作）
 
@@ -16,61 +16,64 @@
 python tools/set_domain.py https://deals.example.com
 ```
 
-将 `deals.example.com` 替换成你的域名。如果还没注册域名，也可以先部署到 Cloudflare 的 `*.pages.dev` 测试，**但正式提交搜索引擎前务必修改为最终域名并重新部署**。
+将 `deals.example.com` 替换成你的域名。如果还没注册域名，也可以先用 GitHub Pages 的 `*.github.io` 地址测试，**但正式提交搜索引擎前务必修改为最终域名并重新部署**。
 
 ### 2. 上传 GitHub
 
 1. 新建 GitHub 仓库，例如 `cainiao-global-coupons`。
-2. 将解压后的全部内容上传，注意保留 `public/` 文件夹。
+2. 将全部内容上传到仓库根目录——**根目录就是网站根目录**（`index.html` 直接放在根目录），注意保留各级文件夹结构。
 3. 可在 GitHub 仓库网页通过 Add file → Upload files 上传，也可以执行 Git 命令：
 
 ```powershell
 git init
 git add .
 git commit -m "Initial static coupon site"
-git branch -M main
+git branch -M master
 git remote add origin https://github.com/你的用户名/cainiao-global-coupons.git
-git push -u origin main
+git push -u origin master
 ```
 
-### 3. Cloudflare Pages 部署
+### 3. GitHub Pages 部署（无需构建）
 
-1. 登录 [Cloudflare](https://dash.cloudflare.com/) → **Workers & Pages**。
-2. 创建 **Pages** 项目 → **Connect to Git**，授权并选择刚才的 GitHub 仓库。
-3. 框架选 **None**；生产分支 `main`；构建命令填写 `exit 0`（或留空）；**输出目录务必填写 `public`**。
-4. 完成首次部署，打开平台提供的 `*.pages.dev` 地址检查页面。
-5. 进入 Pages 项目的 **Custom domains → Set up a domain**，添加自定义域名，并按提示完成 DNS 设置。
-6. 正式域名上线后，检查 `/en/`、`/ja/`、`/th/`、`/ru/`、`/fr-ca/`、`/sitemap.xml`。
-7. 在 [Google Search Console](https://search.google.com/search-console/about) 提交 `https://你的域名/sitemap.xml`，也可以提交到 Bing Webmaster Tools。
+1. 打开 GitHub 仓库 → **Settings → Pages**。
+2. **Build and deployment → Source** 选择 **Deploy from a branch**。
+3. 分支选 `master`（或 `main`），目录选 **`/ (root)`**，点击 **Save**。
+4. 等待约 1 分钟，站点发布在 `https://你的用户名.github.io/cainiao-global-coupons/`，顺便检查 `/en/`、`/ja/` 等子页面。
+5. 仓库中的 `.nojekyll` 文件会关闭 Jekyll 处理，`_headers` 等所有文件都会原样发布。
+6. 页面资源使用根绝对路径（`/assets/...`），github.io 子路径仅适合预览；正式使用请在 **Settings → Pages → Custom domain** 绑定与 `site-data.json` 一致的自定义域名（绑定前先运行 `set_domain.py`）。
+7. 正式域名上线后，检查 `/en/`、`/ja/`、`/th/`、`/ru/`、`/fr-ca/`、`/sitemap.xml`，并在 [Google Search Console](https://search.google.com/search-console/about) 提交 `https://你的域名/sitemap.xml`，也可以提交到 Bing Webmaster Tools。
 
-**GitHub 仓库仅存储源码，Cloudflare Pages 负责提供 HTTPS 与网页托管。** 将来在 GitHub 提交更新，Cloudflare Pages 会自动重新部署。
+**以后向该分支推送更新，GitHub Pages 会自动重新部署。**
+
+**也可以继续使用 Cloudflare Pages：** 框架预设选 **None**、构建命令填 `exit 0`（或留空）、**输出目录填 `/`（仓库根目录）**，再在 Pages 项目中绑定自定义域名。
 
 ### 4. 修改优惠码与内容
 
 - 统一维护优惠码、国家名称、更新日期、域名：编辑 `site-data.json`。
 - 修改六种语言的文案：编辑 `tools/build.py` 中的 `T` 字典。
-- 修改后执行 `python tools/build.py`，生成的静态网页写入 `public/`。
-- 可以直接修改 `public/` 下 HTML，但以后重新运行生成脚本会覆盖手工编辑。
-- 可选本地预览：`python -m http.server 8080 --directory public`，浏览器打开 `http://localhost:8080`。
+- 修改后在仓库根目录执行 `python tools/build.py`，生成的静态网页直接写入仓库根目录。
+- 可以直接修改根目录下的 HTML，但以后重新运行生成脚本会覆盖手工编辑。
+- 可选本地预览：在仓库根目录执行 `python -m http.server 8080`，浏览器打开 `http://localhost:8080`。
 
 ## 项目目录
 
 ```text
-public/                 # 直接发布的完整静态网站
-  index.html            # 中文首页
-  en/index.html         # 英文
-  ja/index.html         # 日文
-  th/index.html         # 泰文
-  ru/index.html         # 俄文
-  fr-ca/index.html      # 加拿大法文
-  assets/               # 页面样式、交互脚本、分享图和图标
-  sitemap.xml           # 搜索站点地图
-  robots.txt            # 搜索爬虫规则
-  llms.txt              # 可选的 AI 可读信息摘要（不能保证收录）
-  _headers              # Cloudflare Pages 静态 HTTP 响应头
+（仓库根目录即网站根目录，可直接用 GitHub Pages 发布）
+index.html              # 中文首页（/）
+en/index.html           # 英文
+ja/index.html           # 日文
+th/index.html           # 泰文
+ru/index.html           # 俄文
+fr-ca/index.html        # 加拿大法文
+assets/                 # 页面样式、交互脚本、分享图和图标
+sitemap.xml             # 搜索站点地图
+robots.txt              # 搜索爬虫规则
+llms.txt                # 可选的 AI 可读信息摘要（不能保证收录）
+_headers                # 静态 HTTP 响应头（Pages / Cloudflare）
+.nojekyll               # 关闭 GitHub Pages 的 Jekyll 处理
 site-data.json          # 网站信息与优惠码
 README.zh-CN.md         # 本文件
-tools/build.py          # 可选：离线生成静态 HTML
+tools/build.py          # 可选：离线生成静态 HTML（输出到根目录）
 tools/set_domain.py     # 一键修改部署域名
 ```
 

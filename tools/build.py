@@ -8,7 +8,7 @@ import pathlib
 import xml.etree.ElementTree as ET
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-OUT=ROOT/'public'
+OUT=ROOT
 D=json.loads((ROOT/'site-data.json').read_text(encoding='utf-8'))
 BASE=D['site_url'].rstrip('/')
 LOCALES=['zh','en','ja','th','ru','fr-ca']
