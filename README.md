@@ -1,6 +1,6 @@
 # ShipSaver — Cainiao Shipping Promo Code Guide
 
-A **static, six-language, single-page-per-language** coupon directory for seven Cainiao international consolidated-shipping destinations. The live website uses only HTML, CSS and vanilla JavaScript. No backend, Node.js, database, API, build command, login, analytics or external assets are required.
+A **static, six-language Cainiao shipping guide** for seven international consolidated-shipping destinations: a coupon directory plus a **100-article guide library** (80 Chinese, 20 English). The published website uses only HTML, CSS and vanilla JavaScript. No backend, database, API, login, analytics or runtime build step is required. Node.js is used only as an optional offline authoring tool for the guide pages.
 
 > **Important — coupon verification and affiliation:** The codes and advertised 85折 (15% off) were supplied by the site publisher and have **not** been independently verified against an authoritative Cainiao promotion notice. **Do not claim "official channel codes", guaranteed savings, a current expiry date, or Cainiao authorization without evidence.** The website clearly identifies itself as an independent information guide and directs users to Cainiao's own domain for transactions.
 
@@ -14,8 +14,20 @@ A **static, six-language, single-page-per-language** coupon directory for seven 
 | `/th/` | Thai | Thailand |
 | `/ru/` | Russian | Russia |
 | `/fr-ca/` | Canadian French | Francophone Canada |
+| `/guides/` | Simplified Chinese | 80-article Chinese guide hub |
+| `/en/guides/` | English | 20-article English guide hub |
 
-All six pages contain all seven destination-specific promo codes:
+The guide library covers five content pillars:
+
+| Pillar | Chinese pages | English pages | Purpose |
+|---|---|---|---|
+| Unboxing VLOG scripts | 20 | — | Honest, shootable scripts that naturally mention parcels arriving via Cainiao consolidation |
+| Carrier / route comparisons | 18 | — | Structural comparison of consolidation options without invented prices or transit times |
+| Reverse-shopping guides | 22 | — | Practical buying-from-China advice with a disclosure at the end |
+| Consolidation tutorials | 20 | — | Step-by-step packing, declaration, tracking and delivery workflows |
+| Cost and promo-code guides | — | 20 | Destination-specific savings, including the supplied `AUONLY`/`USONLY`/`JPONLY` code article |
+
+All six home pages, both guide hubs and every one of the 100 guide pages contain all seven destination-specific promo codes. Guide pages repeat them in a dark, copy-enabled strip directly below the article hero, with the page's own destination highlighted:
 
 | Destination | Code |
 |---|---|
@@ -27,7 +39,7 @@ All six pages contain all seven destination-specific promo codes:
 | Thailand | `THONLY` |
 | Russia | `RUONLY` |
 
-Features: destination search, one-click copy, responsive cards, usage instructions, accessibility support, FAQ answers, JSON-LD `WebSite`/`WebPage`/`FAQPage`/`ItemList`, `hreflang`, self-canonical links, Open Graph image, XML sitemap, robots rules, basic HTTP security headers. Static HTML is readable by search bots and text-first AI retrieval systems without executing JavaScript.
+Features: destination search, one-click copy, responsive cards, a seven-code strip on every guide page, usage instructions, accessibility support, FAQ answers, JSON-LD `WebSite`/`WebPage`/`FAQPage`/`ItemList`, `hreflang`, self-canonical links, Open Graph image, XML sitemaps, robots rules, basic HTTP security headers. The 100 guide pages add `Article`/`BreadcrumbList`/`FAQPage`/`HowTo` structured data, tables of contents, source notes and same-language related links. Static HTML is readable by search bots and text-first AI retrieval systems without executing JavaScript.
 
 ## Repository layout
 
@@ -39,17 +51,30 @@ cainiao-global-coupons/
 ├── th/index.html             # /th/
 ├── ru/index.html             # /ru/
 ├── fr-ca/index.html          # /fr-ca/
+├── guides/index.html         # /guides/ — Chinese guide hub
+├── guides/<slug>/index.html  # 80 Chinese guide articles
+├── en/guides/index.html      # /en/guides/ — English guide hub
+├── en/guides/<slug>/index.html # 20 English guide articles
+├── content/                  # Guide source content (one module per pillar)
+│   ├── zh-unboxing.mjs       # 20 Chinese unboxing VLOG scripts
+│   ├── zh-compare.mjs        # 18 Chinese carrier/route comparisons
+│   ├── zh-reverse.mjs        # 22 Chinese reverse-shopping guides
+│   ├── zh-tutorial.mjs       # 20 Chinese consolidation tutorials
+│   └── en-cost.mjs           # 20 English cost/promo guides
 ├── assets/style.css
+├── assets/guide.css          # Article, hub, table and TOC styles
 ├── assets/app.js
 ├── assets/favicon.svg
 ├── assets/social-card.png
 ├── _headers                  # Static HTTP response headers
 ├── .nojekyll                 # Tells GitHub Pages to publish files as-is
 ├── robots.txt
-├── sitemap.xml
+├── sitemap.xml               # Six locale landing pages
+├── sitemap-guides.xml        # Two guide hubs + 100 guide articles
 ├── llms.txt
 ├── site-data.json            # Codes, names, source and domain (editable)
-├── tools/build.py            # Optional offline standard-library generator
+├── tools/build.py            # Optional offline generator for the six locale pages
+├── tools/build-guides.mjs    # Optional offline generator for the 100 guide pages
 ├── tools/set_domain.py       # Configure production domain and regenerate HTML
 ├── tools/make_social_card.py # Optional preview image generator (requires Pillow)
 ├── README.zh-CN.md
@@ -59,19 +84,24 @@ cainiao-global-coupons/
 
 **Static production does not run Python.** Python is only an optional local authoring convenience. The repository root already contains the pre-rendered HTML and all browser assets, so it can be published directly on GitHub Pages.
 
-## First: set the actual domain (required for search indexing)
+## Domain configuration
 
-Each page initially contains the intentional placeholder `https://YOUR-DOMAIN.example` in its canonical/alternate/Open Graph URLs; the sitemap and robots file also use it. **Replace this before publishing for SEO**.
+The site is currently configured for `https://cainiao-coupons.biggemedtech.com` in `site-data.json`. Canonical, `hreflang`, Open Graph, sitemap and `llms.txt` URLs all use that domain.
 
-With Python 3 installed, from the repository folder run:
+To change it with Python 3 installed, from the repository folder run:
 
 ```powershell
 python tools/set_domain.py https://deals.yourdomain.com
 ```
 
-The script updates `site-data.json` and regenerates all six pages, `sitemap.xml` and `robots.txt`. You can run it again with another domain later.
+The script updates `site-data.json`, regenerates the six locale pages and `sitemap.xml`, then runs the Node guide generator so the 100 guide URLs follow. Without Python, change `site_url` in `site-data.json` and run both generators:
 
-Without Python, replace `https://YOUR-DOMAIN.example` in every generated HTML/XML file at the repository root and change `site_url` in `site-data.json` manually. Do not leave the placeholder in production.
+```powershell
+python tools/build.py
+node tools/build-guides.mjs
+```
+
+Never publish with a canonical domain that does not match the domain actually serving the site.
 
 ## Preview locally (optional)
 
@@ -125,10 +155,50 @@ Cloudflare Pages' free-tier quotas and domain registration fees are separate; ch
 
 Official deployment documentation: https://developers.cloudflare.com/pages/framework-guides/deploy-anything/ and https://developers.cloudflare.com/pages/configuration/custom-domains/
 
+## Guide library: architecture and authoring
+
+The 100 guide pages are plain static HTML. Each article has its own indexable URL, canonical link, language-switch link, Open Graph tags, breadcrumb, table of contents, FAQ and same-language related links.
+
+- Chinese articles: `/guides/<slug>/` (80 pages)
+- English articles: `/en/guides/<slug>/` (20 pages)
+- Hubs: `/guides/` and `/en/guides/`
+
+Authoring workflow (Node.js 18+; no dependencies):
+
+```powershell
+node tools/build-guides.mjs
+```
+
+The generator reads `site-data.json` and the five modules in `content/`, then writes the guide pages, both hubs, `sitemap-guides.xml`, `llms.txt`, and the guide sitemap line in `robots.txt`. It refuses to build unless there are exactly 100 guides with unique slugs, a valid pillar/language, sufficient description length, body sections, FAQ entries and resolvable same-language related links.
+
+Generator ownership:
+
+| Output | Owner |
+|---|---|
+| Six locale landing pages, `sitemap.xml`, `robots.txt` | `tools/build.py` |
+| Guide pages, guide hubs, `sitemap-guides.xml`, `llms.txt`, guide sitemap line in `robots.txt` | `tools/build-guides.mjs` |
+
+If you change `site-data.json`, run both generators, in this order:
+
+```powershell
+python tools/build.py
+node tools/build-guides.mjs
+```
+
+`build.py` no longer writes `llms.txt`, so running it alone will not erase the guide index. The committed HTML is already up to date; neither command is needed to deploy.
+
+Editorial rules used by the library:
+
+- Unboxing pages are **production scripts**, not claims that the author personally bought or received each item.
+- Comparisons do not invent competitor prices, transit times or service failures; Cainiao advantages are described structurally (consolidation, tracking, destination coverage).
+- Customs and tax pages avoid fixed exemption thresholds because rules change; they point to CBP, ABF, CBSA, Japan Customs and similar primary sources.
+- Promo codes and the advertised 15% discount are labelled publisher-supplied and unverified on every page.
+
 ## Update the codes or content
 
-- Codes, country names, content date, authoritative service link and canonical domain are in `site-data.json`. Update there and run `python tools/build.py`.
-- The text of the six locales lives in the `T` dictionary in `tools/build.py`, near the top. Edit locale strings, then run the generator.
+- Codes, country names, content date, authoritative service link and canonical domain are in `site-data.json`. Update there and run `python tools/build.py`, then `node tools/build-guides.mjs`.
+- The text of the six locale landing pages lives in the `T` dictionary in `tools/build.py`, near the top. Edit locale strings, then run the generator.
+- Guide articles live in `content/`. Edit the relevant module, then run `node tools/build-guides.mjs`. The generator enforces exactly 100 guides, so adding or removing an article also means updating the count check, the related-link graph and any hub copy.
 - The generated HTML files at the repository root are ready to edit directly, but regeneration overwrites such manual edits. Do not edit generated HTML and then run the generator without porting edits to its templates.
 - When a coupon is **actually verified** at checkout, record its destination, timestamp, eligibility and evidence. Update only the corresponding wording rather than asserting that all codes were validated.
 - Keep page content and structured data consistent; `dateModified` means the page was updated, not necessarily that the coupons were checked.
@@ -149,7 +219,10 @@ Official deployment documentation: https://developers.cloudflare.com/pages/frame
 - [ ] If you claim “official code,” obtain a primary Cainiao promotion page or documented authorization.
 - [ ] Set real HTTPS canonical domain using `tools/set_domain.py`.
 - [ ] Preview all six locales and all seven copy buttons on desktop/mobile.
-- [ ] Confirm correct routing on `/`, `/en/`, `/ja/`, `/th/`, `/ru/`, `/fr-ca/`.
+- [ ] Confirm correct routing on `/`, `/en/`, `/ja/`, `/th/`, `/ru/`, `/fr-ca/`, `/guides/` and `/en/guides/`.
+- [ ] Spot-check several guide pages: table of contents, tables, FAQ, related links and the promo-code disclaimer.
+- [ ] Confirm `sitemap-guides.xml` contains 102 URLs (two hubs + 100 articles) and is listed in `robots.txt`.
+- [ ] Verify `llms.txt` lists all 100 guides after running the guide generator.
 - [ ] Link an appropriate privacy/contact page if you later add analytics, affiliate links, or forms.
 
 © Independent information guide. No implication of endorsement or affiliation with Cainiao.

@@ -20,4 +20,8 @@ data=json.loads(data_file.read_text(encoding='utf-8'))
 data['site_url']=new
 data_file.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 subprocess.check_call([sys.executable,str(root/'tools'/'build.py')])
+try:
+    subprocess.check_call(['node',str(root/'tools'/'build-guides.mjs')])
+except OSError:
+    print('Node.js was not available. Run "node tools/build-guides.mjs" to update the 100 guide pages and sitemap-guides.xml.')
 print('Canonical domain updated to',new)

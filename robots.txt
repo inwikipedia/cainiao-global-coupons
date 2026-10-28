@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://cainiao-coupons.biggemedtech.com/sitemap.xml
+Sitemap: https://cainiao-coupons.biggemedtech.com/sitemap-guides.xml
