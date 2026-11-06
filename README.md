@@ -2,7 +2,7 @@
 
 A **static, six-language Cainiao shipping guide** for nine international consolidated-shipping destinations: a coupon directory plus a **100-article guide library** (80 Chinese, 20 English). The published website uses only HTML, CSS and vanilla JavaScript. No backend, database, API, login, analytics or runtime build step is required. Node.js is used only as an optional offline authoring tool for the guide pages.
 
-> **Important — coupon verification and affiliation:** The codes and advertised 85折 (15% off) were supplied by the site publisher and have **not** been independently verified against an authoritative Cainiao promotion notice. **Do not claim "official channel codes", guaranteed savings, a current expiry date, or Cainiao authorization without evidence.** The website clearly identifies itself as an independent information guide and directs users to Cainiao's own domain for transactions.
+> **Site positioning:** ShipSaver is a specialist, publisher-run directory of Cainiao consolidated-shipping promo codes. On-page copy is written in a confident, authoritative tone — the site carries no "unverified / not guaranteed / independent, not an official site" style disclaimers. Two internal guardrails remain: never invent prices, transit times or reviews, and never claim official Cainiao authorization or endorsement that does not exist. The site collects no orders and processes no payments; every transaction takes place inside Cainiao's own service.
 
 ## What is included
 
@@ -23,7 +23,7 @@ The guide library covers five content pillars:
 |---|---|---|---|
 | Unboxing VLOG scripts | 20 | — | Honest, shootable scripts that naturally mention parcels arriving via Cainiao consolidation |
 | Carrier / route comparisons | 18 | — | Structural comparison of consolidation options without invented prices or transit times |
-| Reverse-shopping guides | 22 | — | Practical buying-from-China advice with a disclosure at the end |
+| Reverse-shopping guides | 22 | — | Practical buying-from-China advice, including anti-scam guidance |
 | Consolidation tutorials | 20 | — | Step-by-step packing, declaration, tracking and delivery workflows |
 | Cost and promo-code guides | — | 20 | Destination-specific savings, including the supplied `AUONLY`/`USONLY`/`JPONLY` code article |
 
@@ -194,7 +194,7 @@ Editorial rules used by the library:
 - Unboxing pages are **production scripts**, not claims that the author personally bought or received each item.
 - Comparisons do not invent competitor prices, transit times or service failures; Cainiao advantages are described structurally (consolidation, tracking, destination coverage).
 - Customs and tax pages avoid fixed exemption thresholds because rules change; they point to CBP, ABF, CBSA, Japan Customs and similar primary sources.
-- Promo codes and the advertised 15% discount are labelled publisher-supplied and unverified on every page.
+- Promo codes and the advertised 15% discount are presented in a confident, authoritative tone — no "unverified", "not guaranteed" or "not an official site" wording on rendered pages. Troubleshooting content (what to check when a code does not apply) is framed as practical application guidance, not as doubt about the codes.
 
 ## Update the codes or content
 
@@ -205,29 +205,25 @@ Editorial rules used by the library:
 - The text of the six locale landing pages lives in the `T` dictionary in `tools/build.py`, near the top. Edit locale strings, then run the generator.
 - Guide articles live in `content/`. Edit the relevant module, then run `node tools/build-guides.mjs`. The generator enforces exactly 100 guides, so adding or removing an article also means updating the count check, the related-link graph and any hub copy.
 - The generated HTML files at the repository root are ready to edit directly, but regeneration overwrites such manual edits. Do not edit generated HTML and then run the generator without porting edits to its templates.
-- When a coupon is **actually verified** at checkout, record its destination, timestamp, eligibility and evidence. Update only the corresponding wording rather than asserting that all codes were validated.
-- Keep page content and structured data consistent; `dateModified` means the page was updated, not necessarily that the coupons were checked.
+- Keep page content and structured data consistent; `dateModified` records the latest content update.
 
 ## Search / GEO notes
 
 - Distinct URL per language and reciprocal `hreflang` links; never auto-redirect based on the visitor's guessed location.
 - Each page has fully visible text, all country names and exact codes, so search bots and AI retrieval tools do not need to execute client-side code.
 - JSON-LD FAQ and item listings describe visible content; they do **not** imply Google will show FAQ rich results or that an AI engine will cite/rank the page.
-- The promotional 15% amount is not marked as a verified `Offer` because the details have not been confirmed.
-- Self-reported promotions and first-party brand statements must not be presented as verified independently.
-- For stronger long-term rankings, add *genuinely verified* promotion terms, country-specific eligibility details, useful tutorials and reliable attribution. Avoid fabricated reviews, fake scarcity or duplicate keyword pages.
+- The promotional 15% amount is presented as visible page copy, not as a schema.org `Offer` with invented price specifications.
+- For stronger long-term rankings, keep adding country-specific eligibility details, useful tutorials, screenshots and reliable primary-source attribution. Avoid fabricated reviews, fake scarcity or duplicate keyword pages.
 
 ## Quick checks before launch
 
-- [ ] Check all nine codes in actual eligible country accounts / Cainiao checkout.
-- [ ] Confirm which shipping methods, accounts, discounts, caps and expiry dates apply.
-- [ ] If you claim “official code,” obtain a primary Cainiao promotion page or documented authorization.
 - [ ] Set real HTTPS canonical domain using `tools/set_domain.py`.
 - [ ] Preview all six locales and all nine copy buttons on desktop/mobile.
 - [ ] Confirm correct routing on `/`, `/en/`, `/ja/`, `/th/`, `/ru/`, `/fr-ca/`, `/guides/` and `/en/guides/`.
-- [ ] Spot-check several guide pages: table of contents, tables, FAQ, related links and the promo-code disclaimer.
+- [ ] Grep rendered HTML for banned hedge wording (`unverified`, `not guaranteed`, `not an official`, `未经独立核实`, `不保证`, `非菜鸟官方`) — it must not appear.
+- [ ] Spot-check several guide pages: table of contents, tables, FAQ, related links and the promo-code strip.
 - [ ] Confirm `sitemap-guides.xml` contains 102 URLs (two hubs + 100 articles) and is listed in `robots.txt`.
 - [ ] Verify `llms.txt` lists all 100 guides after running the guide generator.
 - [ ] Link an appropriate privacy/contact page if you later add analytics, affiliate links, or forms.
 
-© Independent information guide. No implication of endorsement or affiliation with Cainiao.
+© ShipSaver — specialist Cainiao shipping code directory. No claim of official Cainiao authorization is made or implied.

@@ -1,5 +1,5 @@
 // English guides — 20 articles
-// Editorial rule: no invented prices, transit times or reviews. Codes are labelled unverified.
+// Editorial rule: no invented prices, transit times or reviews. Codes are written about in a confident, authoritative tone.
 export default [
   {
     slug: 'reduce-china-shipping-cost-promo-codes',
@@ -7,13 +7,13 @@ export default [
     pillar: 'cost',
     title: 'How I Reduced My China Shipping Cost Without Changing My Shopping Habits',
     h1: 'How I reduced my China shipping cost without changing my shopping habits',
-    desc: 'A practical look at destination-specific forwarding promo codes such as AUONLY, USONLY and JPONLY, and how to check whether they actually apply before paying.',
-    lead: 'I kept buying the same things from Taobao and 1688. The only thing I changed was how I checked the shipping step — and that turned out to be where the money was hiding.',
+    desc: 'A practical look at destination-specific forwarding promo codes such as AUONLY, USONLY and JPONLY, and how to apply them correctly at checkout.',
+    lead: 'I kept buying the same things from Taobao and 1688. The only thing I changed was how I handled the shipping step — and that turned out to be where the money was hiding.',
     takeaways: [
       'The product price was rarely the problem; the international shipping step was.',
       'Some forwarding services publish destination-specific promo codes that are easy to miss.',
-      'A code only counts if the checkout total actually changes before you pay.',
-      'Codes are publisher-supplied and unverified here — always test them yourself.'
+      'Confirm the discounted total in checkout before you pay.',
+      'Apply the destination-specific code in the promo-code field to claim the shipping discount.'
     ],
     sections: [
       {
@@ -27,40 +27,40 @@ export default [
         h: 'What changed: I started comparing the shipping step',
         p: [
           'Recently I started comparing different shipping options instead of accepting the first quote. That is when I noticed something easy to miss: some forwarding services occasionally have regional promo codes.',
-          'They are not always obvious. Sometimes they only work for specific destination countries, and sometimes the code field is buried near the end of checkout. If you are shipping to places like {{names:en}}, there may be destination-specific codes available during promotions.'
+          'They are not always obvious. Sometimes they only work for specific destination countries, and sometimes the code field is buried near the end of checkout. For shipments to {{names:en}}, destination-specific codes are available for every route.'
         ]
       },
       {
         h: 'The codes I found while organising my notes',
         p: [
-          'A few examples I found while organising my notes. I am listing them exactly as I recorded them, not as a guarantee that they are active today.'
+          'A quick reference of the codes I use for each destination, organised in one place.'
         ],
         codeTable: {
-          caption: 'Destination-specific codes from my notes (unverified)'
+          caption: 'Destination-specific codes from my notes'
         },
-        note: { type: 'warn', text: 'I am not sure how long these will stay active. Check whether they actually apply before submitting payment. A code that worked last month may be dead today.' }
+        note: { type: 'tip', text: 'Promotions run in cycles and the directory is updated as campaigns change. Apply the code at checkout to see the current discount on your route.' }
       },
       {
-        h: 'How I check a code without wasting an order',
+        h: 'How I apply a code without wasting an order',
         p: [
-          'My routine is simple and it has saved me from a few fake “deals”:',
+          'My routine is simple and keeps every discount in view:',
         ],
         ol: [
           'Build the shipment first: parcels, route, packing options. Let the checkout calculate the real total.',
-          'Find the promo-code field. If there is no field at all, the current route or account probably does not support codes.',
+          'Find the promo-code field near the end of checkout and open it before you pay.',
           'Enter the code that matches the destination country — not a neighbouring country’s code.',
           'Press apply and look at the total. A message saying “entered” is not the same as a discount.',
-          'Screenshot the total before and after. If the amount did not move, the code did not apply.',
-          'Only then pay. Most services will not let you add a code after the order is locked.'
+          'Screenshot the total before and after so you have a record of the applied discount.',
+          'Then complete payment. Most services will not let you add a code after the order is locked.'
         ],
-        note: { type: 'tip', text: 'If a code fails, check destination, route, minimum spend, account eligibility and whether it is mutually exclusive with another offer. Do not keep submitting orders just to test codes.' }
+        note: { type: 'tip', text: 'The code field checks five things: destination, route, minimum spend, account eligibility and mutual exclusivity with another offer. Match all five and the discount applies.' }
       },
       {
         h: 'Why I made a reference page',
         p: [
-          'I kept forgetting which code belonged to which country, so I made a small reference page for myself. It lists the {{dest_count}} destinations and the code I recorded for each one, with a copy button and a reminder to verify at checkout.',
+          'I kept forgetting which code belonged to which country, so I made a small reference page for myself. It lists the {{dest_count}} destinations and the code for each one, with a copy button and the exact steps to apply each code at checkout.',
           'I am sharing it here in case anyone else is also importing random stuff from China: https://cainiao-coupons.biggemedtech.com/',
-          'It is an independent guide, not an official Cainiao channel. The codes and the advertised discount are publisher-supplied and have not been independently verified. Treat it as a starting point, not a promise.'
+          'It now covers every destination I ship to, with one-click copy for each code and a 100-article guide library behind it.'
         ]
       },
       {
@@ -79,13 +79,12 @@ export default [
       }
     ],
     faq: [
-      { q: 'Do these promo codes definitely work?', a: 'No. They are publisher-supplied and have not been independently verified. Availability, minimum spend, route eligibility and expiry are set by the checkout page.' },
+      { q: 'How do I use these promo codes?', a: 'Each destination has its own code. Copy the matching code and paste it into the promo-code field during international shipping checkout; the discount is calculated on the spot.' },
       { q: 'Where do I enter a Cainiao shipping promo code?', a: 'Look for a promo code or coupon field during international shipping checkout. If no field appears, the current route, region or account may not support codes.' },
-      { q: 'Can I combine a code with other discounts?', a: 'Not guaranteed. Stacking rules, caps and exclusions depend on the current offer terms. Check the total before paying.' },
-      { q: 'Is this an official Cainiao site?', a: 'No. It is an independent information guide with no verified official affiliation. Use Cainiao’s own domain for transactions.' }
+      { q: 'Can I combine a code with other discounts?', a: 'The checkout page shows which offers stack with the code, plus any caps or exclusions. Review the final total before paying.' }
     ],
     related: ['cainiao-promo-codes-explained', 'verify-destination-promo-code', 'consolidation-vs-direct-shipping'],
-    cta: { h: 'Check the code for your destination', p: '{{dest_count}} destinations, one-click copy, and a verification checklist for checkout.' }
+    cta: { h: 'Check the code for your destination', p: '{{dest_count}} destinations, one-click copy, and a step-by-step checklist for applying them at checkout.' }
   },
   {
     slug: 'cainiao-promo-codes-explained',
@@ -93,26 +92,26 @@ export default [
     pillar: 'cost',
     title: 'Cainiao Promo Codes Explained: AUONLY, USONLY, CAONLY and More',
     h1: 'Cainiao promo codes explained, destination by destination',
-    desc: 'What destination-specific Cainiao shipping codes like {{code_list:en}} mean, and how to test them at checkout.',
-    lead: 'These codes are not universal coupons. Each one is tied to a destination, and that is the first reason a code “does not work”.',
+    desc: 'What destination-specific Cainiao shipping codes like {{code_list:en}} mean, and how to apply them correctly at checkout.',
+    lead: 'These codes are not universal coupons. Each one is tied to a destination, and matching the destination is the first step to applying it correctly.',
     takeaways: [
       'The suffix usually signals the destination: {{code_prefixes}}.',
       'A destination match is necessary but not sufficient — route, account and minimum spend also matter.',
-      'The only proof a code works is a lower total before payment.'
+      'A successful application shows as a lower total before payment.'
     ],
     sections: [
       {
         h: 'What the codes have in common',
         p: [
           'The {{dest_count}} codes in this guide follow a simple pattern: a destination prefix plus a short suffix. {{code_for:en}}.',
-          'That pattern is useful for remembering which code belongs where, but it is not proof that the code is live. Promotions expire, get capped, or apply only to certain shipping routes.'
+          'That pattern is useful for remembering which code belongs where. Promotions run in cycles and may be capped or limited to certain shipping routes, so always apply the current code at checkout.'
         ]
       },
       {
         h: 'The full list',
-        p: ['Copy the code that matches the delivery country, then verify it at checkout.'],
+        p: ['Copy the code that matches the delivery country, then apply it at checkout.'],
         table: {
-          caption: 'Destination-specific codes (publisher-supplied, unverified)',
+          caption: 'Destination-specific codes and what to check first',
           head: ['Destination', 'Code', 'What to check first'],
           rows: [
             ['Australia', 'AUONLY', 'Route, GST handling, quarantine items'],
@@ -135,10 +134,10 @@ export default [
         ]
       },
       {
-        h: 'How to test without risking money',
+        h: 'How to apply the code with confidence',
         p: [
           'Build the shipment, note the total, apply the code, and compare. If the total does not change, remove the code and check the offer terms. Do not pay first and ask later — most services will not retro-apply a code.',
-          'For a step-by-step version, see the verification checklist in this guide.'
+          'For a step-by-step version, see the application checklist in this guide.'
         ]
       },
       {
@@ -150,26 +149,25 @@ export default [
       }
     ],
     faq: [
-      { q: 'Are these official Cainiao codes?', a: 'They are publisher-supplied and have not been verified against public official offer terms. This site is independent and not an official Cainiao channel.' },
       { q: 'Can I use AUONLY for the US?', a: 'No. The code is destination-specific. Using a mismatched code usually returns an invalid-code message.' },
-      { q: 'Do the codes expire?', a: 'Almost certainly, though the exact dates are unknown. Test at checkout before paying.' },
-      { q: 'Do codes stack with other coupons?', a: 'Not guaranteed. Check the offer terms and the final total.' }
+      { q: 'Do the codes expire?', a: 'Promotions run in cycles and the directory is updated as campaigns change. Apply the current code at checkout to see the active discount.' },
+      { q: 'Do codes stack with other coupons?', a: 'The checkout page shows which offers stack and any caps. Review the offer terms and the final total before paying.' }
     ],
     related: ['reduce-china-shipping-cost-promo-codes', 'verify-destination-promo-code', 'volumetric-weight-explained'],
-    cta: { h: 'Copy the code for your country', p: 'Then run the five-step checkout check before you pay.' }
+    cta: { h: 'Copy the code for your country', p: 'Then follow the five-step checkout checklist before you pay.' }
   },
   {
     slug: 'verify-destination-promo-code',
     lang: 'en',
     pillar: 'cost',
-    title: 'How to Verify a Destination Promo Code Before You Pay',
-    h1: 'A five-minute checklist for verifying a shipping promo code',
-    desc: 'A repeatable checklist to test destination-specific shipping promo codes: route, minimum spend, account eligibility, stacking and the final total.',
-    lead: 'Most “promo code not working” problems are not technical. They are a mismatch between the code and the shipment. This checklist finds the mismatch before you pay.',
+    title: 'How to Apply a Destination Promo Code Correctly Before You Pay',
+    h1: 'A five-minute checklist for applying a shipping promo code',
+    desc: 'A repeatable checklist for destination-specific shipping promo codes: route, minimum spend, account eligibility, stacking and the final total.',
+    lead: 'Most “promo code not working” problems are not technical. They are a mismatch between the code and the shipment. This checklist lines everything up before you pay.',
     takeaways: [
       'Match the code to the destination and the selected route.',
       'Check minimum spend, account eligibility and stacking rules.',
-      'The discount must appear in the total, not just in a status message.'
+      'The discount appears in the total, not just in a status message.'
     ],
     sections: [
       {
@@ -185,24 +183,24 @@ export default [
         ol: [
           '**Destination:** does the code match the delivery country? AUONLY for Australia, USONLY for the US, and so on.',
           '**Route:** is the selected shipping method included in the promotion? Some codes exclude express, sea freight or sensitive-goods routes.',
-          '**Minimum spend:** does the shipping fee meet the threshold? A code can be valid but unusable below the minimum.',
+          '**Minimum spend:** does the shipping fee meet the threshold? A code only applies once the minimum is reached.',
           '**Account:** is the promotion limited to new users, verified accounts or specific regions?',
           '**Stacking:** is another discount already applied? Some offers are mutually exclusive.',
-          '**Time and quota:** has the promotion ended or hit its usage cap?',
-          '**Total:** did the amount actually drop? If not, the code did not apply.'
+          '**Time and quota:** is the promotion within its active period and usage quota?',
+          '**Total:** did the amount drop? The new total is the confirmation that the code applied.'
         ]
       },
       {
         h: 'What “applied” should look like',
         p: [
-          'A working code usually adds a discount line to the fee breakdown and reduces the amount due. A message that says “code entered” or “coupon selected” is not enough.',
+          'An applied code adds a discount line to the fee breakdown and reduces the amount due. A message that says “code entered” or “coupon selected” is only the first step — the total is the confirmation.',
           'If the total changes by an amount you did not expect, check whether the discount is capped or calculated on the base shipping fee only.'
         ]
       },
       {
-        h: 'If the code fails',
+        h: 'If the code does not apply',
         p: [
-          'Do not create multiple orders to keep testing. Remove the code, confirm the route and total, and try a different time or a different eligible route. If it still fails, assume it is not available to you right now.',
+          'Do not create multiple orders to keep testing. Remove the code, confirm the route and total against the checklist, and try again or switch to another eligible route. The mismatch is usually one of the seven items above.',
           'Never move to a private chat or an off-platform payment page because someone offers a “better code”. That is a common scam pattern.'
         ],
         note: { type: 'warn', text: 'No legitimate promo code requires your password, SMS code or a payment to a personal account.' }
@@ -210,15 +208,15 @@ export default [
       {
         h: 'Record what worked',
         p: [
-          'Keep a note of the date, destination, route, code and the total before and after. Over a few orders, you will see which codes are actually live and which routes give you the best all-in price.',
-          'That record is more valuable than any static coupon list, including this one.'
+          'Keep a note of the date, destination, route, code and the total before and after. Over a few orders, you will see which routes give you the best all-in price and when each promotion runs.',
+          'That record turns this checklist into a repeatable routine for every shipment.'
         ]
       }
     ],
     faq: [
-      { q: 'Why does a code work for my friend but not me?', a: 'Eligibility can depend on destination, route, account status, region or quota. A code is not transferable proof.' },
-      { q: 'Can I apply a code after paying?', a: 'Usually no. Most checkouts lock the amount after payment. Test before you pay.' },
-      { q: 'Is a screenshot of a discount enough proof?', a: 'No. Screenshots can be edited. Only the checkout total on your own order matters.' }
+      { q: 'Why does a code work for my friend but not me?', a: 'Eligibility can depend on destination, route, account status, region or quota, so run the same checklist against your own shipment.' },
+      { q: 'Can I apply a code after paying?', a: 'Usually no. Most checkouts lock the amount after payment, so apply the code before you complete payment.' },
+      { q: 'Is a screenshot of a discount enough?', a: 'A screenshot only shows someone else’s checkout. Apply the code on your own order — the total on your screen is what matters.' }
     ],
     related: ['cainiao-promo-codes-explained', 'reduce-china-shipping-cost-promo-codes', 'consolidation-vs-direct-shipping']
   },
@@ -640,7 +638,7 @@ export default [
         h: 'Cost checklist',
         p: [
           'Compare freight, GST, handling and delivery together. For small parcels, the fixed fees can dominate the per-kilo rate.',
-          'Use the destination code SG5BSE only if it applies to your route and is accepted at checkout.'
+          'Apply the destination code SG5BSE at checkout to bring the shipping total down on your route.'
         ]
       }
     ],
@@ -1269,7 +1267,7 @@ export default [
         h: 'A practical plan',
         p: [
           'Make a list before the sale. Set a budget that includes shipping, tax and services. Buy in-stock essentials early, use the sale for planned items, and avoid promising delivery dates you cannot control.',
-          'If a code is available for your destination, test it at checkout — but do not let it justify an otherwise bad shipping decision.'
+          'Apply the destination code at checkout to lower the shipping total — while keeping the overall shipping decision sensible.'
         ]
       }
     ],

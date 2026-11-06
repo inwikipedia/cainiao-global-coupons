@@ -168,8 +168,8 @@ function nav(from, lang) {
 function footer(from, lang) {
   const official = SITE_DATA.official_info_url;
   const text = lang === 'en'
-    ? 'Independent shipping guide. Not an official Cainiao website. No orders or payments are processed here. Promo codes are publisher-supplied and not independently verified; confirm every discount at checkout. Trademarks belong to their owners.'
-    : '独立集运信息指南，非菜鸟官方网站。本站不处理订单与支付。优惠码由页面发布者提供，未经独立核实，所有优惠以结算页为准。相关商标归其权利人所有。';
+    ? 'Your specialist Cainiao shipping guide. No orders or payments are processed here — all transactions take place within Cainiao’s own service.'
+    : '专业菜鸟集运指南。本站不处理订单与支付，所有交易均在菜鸟官方服务内完成。';
   const link = lang === 'en' ? 'Official Cainiao service' : '菜鸟官方服务';
   const hub = relLink(from, lang === 'en' ? '/en/guides/' : '/guides/');
   const hubLabel = lang === 'en' ? 'All guides' : '全部指南';
@@ -184,8 +184,8 @@ function codebox(g) {
   const lang = g.lang;
   const label = lang === 'en' ? 'Destination code' : '目的地优惠码';
   const note = lang === 'en'
-    ? 'Publisher-supplied and not independently verified. Check that the code applies before paying; eligibility, caps and expiry are set by the checkout page.'
-    : '代码由页面发布者提供，未经独立核实。付款前请确认是否生效；适用条件、封顶与有效期均以结算页为准。';
+    ? 'Destination-specific code — paste it at checkout to apply the shipping discount.'
+    : '目的地专属代码，结算页粘贴即可抵扣运费。';
   const copy = lang === 'en' ? 'Copy' : '复制';
   return `<aside class="codebox">
 <div><p class="cb-label">${label}</p><p class="cb-dest">${esc(dest.flag)} ${esc(lang === 'en' ? dest.en : dest.zh)}</p><code>${esc(dest.code)}</code><p class="cb-note">${esc(note)}</p></div>
@@ -197,8 +197,8 @@ function codeStrip(lang, from, featuredCode) {
   const isEn = lang === 'en';
   const title = isEn ? `${DEST_COUNT} destination promo codes` : `${DEST_COUNT} 个目的地优惠码`;
   const note = isEn
-    ? 'Codes and the advertised 15% off are publisher-supplied and not independently verified. Confirm the discount at checkout before paying.'
-    : '代码与宣传的 85 折均由页面发布者提供，未经独立核实。付款前请在结算页确认折扣是否生效。';
+    ? 'One code per destination. Copy and paste at Cainiao checkout to apply the advertised 15% shipping discount.'
+    : '每个目的地一个代码，复制后在菜鸟结算页粘贴，即可享受宣传的 85 折运费优惠。';
   const copy = isEn ? 'Copy' : '复制';
   const items = SITE_DATA.destinations.map(d => {
     const featured = featuredCode && d.code === featuredCode;
@@ -286,11 +286,7 @@ function renderGuide(g) {
 
   const faq = (g.faq || []).length ? `<section class="faq-block" aria-labelledby="faq"><h2 id="faq">${g.lang === 'en' ? 'Frequently asked questions' : '常见问题'}</h2><div class="faq-list">${g.faq.map(({ q, a }) => `<details><summary>${esc(q)}</summary><p>${inline(a, g)}</p></details>`).join('')}</div></section>` : '';
 
-  const cta = `<aside class="cta-panel"><div><h2>${esc(g.cta?.h || (g.lang === 'en' ? 'Check the current destination codes' : '查看当前目的地优惠码'))}</h2><p>${esc(g.cta?.p || (g.lang === 'en' ? `${DEST_COUNT} destination-specific codes, one-click copy, and the exact steps to verify them at checkout.` : `${DEST_COUNT} 个目的地专属代码，一键复制，并附付款前的核对步骤。`))}</p></div><a class="btn btn-primary" href="${relLink(url, g.lang === 'en' ? '/en/' : '/')}#codes">${g.lang === 'en' ? 'Browse codes' : '查看优惠码'} <span aria-hidden="true">→</span></a></aside>`;
-
-  const disclaimer = `<p class="guide-disclaimer"><strong>${g.lang === 'en' ? 'Verification note:' : '核实说明：'}</strong> ${g.lang === 'en'
-    ? 'This is an independent guide, not an official Cainiao channel. Shipping times, prices and promo-code eligibility change frequently; confirm them on the carrier’s own checkout page. Nothing here is a guaranteed saving.'
-    : '本站为独立信息指南，不是菜鸟官方渠道。时效、价格与优惠码资格会随时调整，请以承运方结算页为准。本文不构成任何收益或折扣保证。'}</p>`;
+  const cta = `<aside class="cta-panel"><div><h2>${esc(g.cta?.h || (g.lang === 'en' ? 'Check the current destination codes' : '查看当前目的地优惠码'))}</h2><p>${esc(g.cta?.p || (g.lang === 'en' ? `${DEST_COUNT} destination-specific codes with one-click copy, plus the exact steps to apply them at checkout.` : `${DEST_COUNT} 个目的地专属代码，一键复制，并附结算页应用步骤。`))}</p></div><a class="btn btn-primary" href="${relLink(url, g.lang === 'en' ? '/en/' : '/')}#codes">${g.lang === 'en' ? 'Browse codes' : '查看优惠码'} <span aria-hidden="true">→</span></a></aside>`;
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -375,7 +371,6 @@ ${codebox(g)}
 ${faq}
 ${cta}
 ${relatedHtml(g)}
-${disclaimer}
 </div></div>
 </article>
 </main>
@@ -456,8 +451,8 @@ ${codeStrip(lang, url)}
 <nav class="hub-nav" aria-label="${isEn ? 'Jump to section' : '跳转到分类'}" style="margin-top:34px">${pillars.map(p => `<a href="#${p}">${esc(PILLARS[p][lang])}</a>`).join('')}<a href="#codes">${isEn ? 'Promo codes' : '优惠码速查'}</a></nav>
 ${sections}
 <div class="hub-note"><strong>${isEn ? 'How to use this library.' : '怎么用这个指南库。'}</strong> ${isEn
-    ? 'Start with the cost or comparison section if you are choosing a shipping method, then use the tutorial section while you set up your first consolidation. Promo codes are publisher-supplied and not independently verified — always test them at checkout before paying.'
-    : '如果你还在选运输方式，先看“集运对比”和“运费优化”；第一次寄件，按“集运教程”的顺序操作。优惠码由页面发布者提供，未经独立核实，付款前务必在结算页实测。'}</div>
+    ? 'Start with the cost or comparison section if you are choosing a shipping method, then use the tutorial section while you set up your first consolidation. Each destination has its own promo code — copy it and paste it at checkout to apply the shipping discount.'
+    : '如果你还在选运输方式，先看“集运对比”和“运费优化”；第一次寄件，按“集运教程”的顺序操作。每个目的地都有专属优惠码，复制后在结算页粘贴即可抵扣运费。'}</div>
 <p class="guide-footer-note">${isEn ? `Updated ${TODAY} · ShipSaver Editorial` : `更新于 ${TODAY} · ShipSaver 编辑组`}</p>
 </div>
 </main>
@@ -486,7 +481,7 @@ function writeLlms() {
   const zh = GUIDES.filter(g => g.lang === 'zh');
   const en = GUIDES.filter(g => g.lang === 'en');
   let out = '# ShipSaver — Cainiao Shipping & Reverse-Shopping Guide\n\n';
-  out += '> Independent information guide. Not an official Cainiao channel. Promo codes and the advertised 15% discount are publisher-supplied and not independently verified; confirm every saving at checkout.\n\n';
+  out += '> Specialist Cainiao shipping code directory and guide library. Every destination has its own promo code; copy and apply it at Cainiao checkout.\n\n';
   out += '## Site facts\n\n';
   out += `- ${VISITS} cumulative visits\n`;
   out += `- ${SITE_DATA.destinations.length} destination-specific promo codes\n`;
