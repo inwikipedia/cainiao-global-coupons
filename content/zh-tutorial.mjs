@@ -75,7 +75,7 @@ export default [
       { q: '集运丢件谁负责？', a: '先看承运方的赔付条款：是否保价、是否按申报价值赔、免赔额多少。未保价的包裹通常只按运费或较低上限赔付，高价值商品建议单独保价。' }
     ],
     related: ['first-consolidation-step-by-step', 'weight-and-billing-rules', 'official-consolidation-vs-forwarder'],
-    cta: { h: '准备寄第一票？先把目的地代码存好', p: '七个目的地各有一个参考优惠码，复制后到结算页实测是否生效。' }
+    cta: { h: '准备寄第一票？先把目的地代码存好', p: '{{dest_count}}个目的地各有一个参考优惠码，复制后到结算页实测是否生效。' }
   },
   {
     slug: 'first-consolidation-step-by-step',
@@ -1346,23 +1346,13 @@ export default [
         note: { type: 'warn', text: '如果页面提示“无效”，不要为了试码反复下单。先看活动规则，或换一个结算时段再试。' }
       },
       {
-        h: '七个目的地代码',
+        h: '{{dest_count}}个目的地代码',
         p: [
-          '本站整理的参考代码：澳大利亚 AUONLY、美国 USONLY、加拿大 CAONLY、日本 JPONLY、新加坡 SG5BSE、泰国 THONLY、俄罗斯 RUONLY。',
+          '本站整理的参考代码：{{codes:zh}}。',
           '这些代码由页面发布者提供，未经独立核实。是否可用、折扣力度、适用线路和有效期，都以结算页为准。'
         ],
-        table: {
-          caption: '目的地与参考代码',
-          head: ['目的地', '代码'],
-          rows: [
-            ['澳大利亚', 'AUONLY'],
-            ['美国', 'USONLY'],
-            ['加拿大', 'CAONLY'],
-            ['日本', 'JPONLY'],
-            ['新加坡', 'SG5BSE'],
-            ['泰国', 'THONLY'],
-            ['俄罗斯', 'RUONLY']
-          ]
+        codeTable: {
+          caption: '目的地与参考代码'
         }
       },
       {

@@ -2,6 +2,14 @@
 
 > Independent information guide. Not an official Cainiao channel. Promo codes and the advertised 15% discount are publisher-supplied and not independently verified; confirm every saving at checkout.
 
+## Site facts
+
+- 100,000+ cumulative visits
+- 9 destination-specific promo codes
+- 100 in-depth guides (80 Chinese, 20 English)
+- 6 language editions (zh-CN, en, ja, th, ru, fr-CA)
+- No sign-up, no payment and no order processing on this site
+
 ## Destination promo codes
 
 - Australia: `AUONLY`
@@ -10,6 +18,8 @@
 - Japan: `JPONLY`
 - Singapore: `SG5BSE`
 - Thailand: `THONLY`
+- Taiwan: `TW8LLQ`
+- Malaysia: `MYONLY`
 - Russia: `RUONLY`
 
 ## Language editions
@@ -79,7 +89,7 @@
 - [拼多多海淘：低价商品的集运可行性](https://cainiao-coupons.biggemedtech.com/guides/pinduoduo-overseas-shipping/): 拼多多海淘指南：哪些商品值得买、能否寄集运仓、包装与质量问题、合单成本和售后处理。
 - [淘宝官方直送 vs 集运：哪种更省钱、更稳](https://cainiao-coupons.biggemedtech.com/guides/taobao-direct-vs-consolidation/): 淘宝官方直送与集运仓对比：操作流程、首重、时效、拆包减重、售后与适用场景，帮你按订单结构做选择。
 - [海外买淘宝怎么付款：支付宝、信用卡与代付风险](https://cainiao-coupons.biggemedtech.com/guides/overseas-payment-methods/): 海外用户淘宝/1688 付款方式：支付宝绑定外卡、国际信用卡、代付与礼品卡的可行性与风险，附手续费与汇率注意事项。
-- [海外收货地址怎么写：州、邮编、电话与门牌](https://cainiao-coupons.biggemedtech.com/guides/shipping-address-format/): 海外收货地址填写指南：美国、澳大利亚、加拿大、日本、新加坡、泰国、俄罗斯的州省、邮编、电话与门牌格式要点。
+- [海外收货地址怎么写：州、邮编、电话与门牌](https://cainiao-coupons.biggemedtech.com/guides/shipping-address-format/): 海外收货地址填写指南：澳大利亚、美国、加拿大、日本、新加坡、泰国、台湾、马来西亚、俄罗斯的州省、邮编、电话与门牌格式要点。
 - [寄美国清关与关税：需要核对什么](https://cainiao-coupons.biggemedtech.com/guides/us-customs-and-duties/): 寄美国集运清关指南：申报价值、关税与税费、个人进口限制、承运方清关资料，以及近年政策变化下的核对方法。
 - [寄澳大利亚清关与 GST：海淘要核对什么](https://cainiao-coupons.biggemedtech.com/guides/australia-customs-and-duties/): 寄澳大利亚集运清关指南：GST、申报价值、生物安全检疫、禁运品与承运方清关要求，附寄件前核对清单。
 - [寄加拿大清关与税费：邮政和快递差别在哪](https://cainiao-coupons.biggemedtech.com/guides/canada-customs-and-duties/): 寄加拿大集运清关指南：关税与 GST/HST、邮政与商业快递的清关差异、申报价值、禁运品与承运方资料要求。
@@ -135,7 +145,7 @@
 ### Shipping Costs
 
 - [How I Reduced My China Shipping Cost Without Changing My Shopping Habits](https://cainiao-coupons.biggemedtech.com/en/guides/reduce-china-shipping-cost-promo-codes/): A practical look at destination-specific forwarding promo codes such as AUONLY, USONLY and JPONLY, and how to check whether they actually apply before paying.
-- [Cainiao Promo Codes Explained: AUONLY, USONLY, CAONLY and More](https://cainiao-coupons.biggemedtech.com/en/guides/cainiao-promo-codes-explained/): What destination-specific Cainiao shipping codes like AUONLY, USONLY, CAONLY, JPONLY, SG5BSE, THONLY and RUONLY mean, and how to test them at checkout.
+- [Cainiao Promo Codes Explained: AUONLY, USONLY, CAONLY and More](https://cainiao-coupons.biggemedtech.com/en/guides/cainiao-promo-codes-explained/): What destination-specific Cainiao shipping codes like AUONLY, USONLY, CAONLY, JPONLY, SG5BSE, THONLY, TW8LLQ, MYONLY and RUONLY mean, and how to test them at checkout.
 - [How to Verify a Destination Promo Code Before You Pay](https://cainiao-coupons.biggemedtech.com/en/guides/verify-destination-promo-code/): A repeatable checklist to test destination-specific shipping promo codes: route, minimum spend, account eligibility, stacking and the final total.
 - [Volumetric Weight Explained: Why Light Parcels Cost More](https://cainiao-coupons.biggemedtech.com/en/guides/volumetric-weight-explained/): How volumetric weight works, how to measure a box, why divisors differ by route, and five ways to lower billing weight without damaging your goods.
 - [How to Calculate Landed Cost for China Purchases](https://cainiao-coupons.biggemedtech.com/en/guides/landed-cost-calculation/): A landed-cost template for China purchases: product price, domestic freight, international shipping, volumetric weight, duty, tax and returns risk.
@@ -144,6 +154,6 @@
 ## Reference and scope
 
 - Official Cainiao consolidated shipping information: https://shipping.conso.cainiao.com/
-- Guide content updated: 2026-10-28
+- Guide content updated: 2026-11-06
 - Codes are not verified against public official offer terms.
 - No purchases, payments or shipping orders are processed on this site.

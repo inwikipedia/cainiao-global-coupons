@@ -1,6 +1,6 @@
 {
   "site_url": "https://cainiao-coupons.biggemedtech.com",
-  "last_updated": "2026-10-13",
+  "last_updated": "2026-11-06",
   "official_info_url": "https://shipping.conso.cainiao.com/",
   "discount_reference": "85折 / 15% off (user-submitted, unverified)",
   "destinations": [
@@ -75,6 +75,30 @@
       "ru": "Таиланд",
       "fr-ca": "Thaïlande",
       "synonyms": "TH 泰国 泰國"
+    },
+    {
+      "slug": "taiwan",
+      "flag": "🇹🇼",
+      "code": "TW8LLQ",
+      "zh": "台湾",
+      "en": "Taiwan",
+      "ja": "台湾",
+      "th": "ไต้หวัน",
+      "ru": "Тайвань",
+      "fr-ca": "Taïwan",
+      "synonyms": "TW 台湾 台灣 臺灣"
+    },
+    {
+      "slug": "malaysia",
+      "flag": "🇲🇾",
+      "code": "MYONLY",
+      "zh": "马来西亚",
+      "en": "Malaysia",
+      "ja": "マレーシア",
+      "th": "มาเลเซีย",
+      "ru": "Малайзия",
+      "fr-ca": "Malaisie",
+      "synonyms": "MY 马来西亚 馬來西亞"
     },
     {
       "slug": "russia",

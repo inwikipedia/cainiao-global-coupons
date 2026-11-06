@@ -1,6 +1,6 @@
 # 菜鸟集运优惠码多语言推广单页（静态版）
 
-已经生成可部署的完整网站：**中文 + 英语 + 日语 + 泰语 + 俄语 + 加拿大法语**六个语言首页，以及 **100 篇独立 GEO/SEO 指南**（中文 80 篇、英文 20 篇）。每个语言首页、两个指南库首页和全部 100 篇文章都包含美国、澳大利亚、加拿大、日本、新加坡、泰国、俄罗斯七个优惠码；文章页在标题下方用高对比色条重复展示全部代码，并自动高亮本文对应目的地，均可一键复制。手机端适配；可搜索。无需服务器或数据库，浏览器端只有 HTML、CSS、原生 JavaScript。
+已经生成可部署的完整网站：**中文 + 英语 + 日语 + 泰语 + 俄语 + 加拿大法语**六个语言首页，以及 **100 篇独立 GEO/SEO 指南**（中文 80 篇、英文 20 篇）。每个语言首页、两个指南库首页和全部 100 篇文章都包含美国、澳大利亚、加拿大、日本、新加坡、泰国、台湾、马来西亚、俄罗斯九个优惠码；文章页在标题下方用高对比色条重复展示全部代码，并自动高亮本文对应目的地，均可一键复制。手机端适配；可搜索。无需服务器或数据库，浏览器端只有 HTML、CSS、原生 JavaScript。
 
 **重要说明：** 优惠码和“85折”力度来自网站发布者提供的信息，尚未独立核实官方活动公告、有效期、适用地区、用户门槛与叠加规则。站点不能自称菜鸟官方授权或承诺折扣一定生效，使用前请在菜鸟实际结算页核验。
 
@@ -48,6 +48,9 @@ git push -u origin master
 ### 4. 修改优惠码与内容
 
 - 统一维护优惠码、国家名称、更新日期、域名：编辑 `site-data.json`，然后依次执行 `python tools/build.py` 和 `node tools/build-guides.mjs`。
+- **新增目的地只改一处**：在 `site-data.json` 的 `destinations` 里追加一个对象（slug、旗帜、代码、六语种名称、搜索词），再运行两个生成器即可。首页标题/描述、全部文章页的优惠码色条与指南库统计、`llms.txt`、结构化数据，以及文章中用令牌或 `codeTable` 生成的清单都会自动更新；社交卡脚本同样读取该 JSON 并自动缩放前缀行宽度。
+- `content/*.mjs` 可用的构建令牌：`{{dest_count}}`、`{{names:zh}}`、`{{names:en}}`、`{{codes:zh}}`、`{{codes:en}}`、`{{code_list:en}}`、`{{code_prefixes}}`、`{{code_for:en}}`；`codeTable: { caption }` 段落会自动渲染完整目的地/代码表格，无需手写行。
+- 唯一需要手工补行的是两张带编辑点评的表格：`content/zh-reverse.mjs` 的地址格式表和 `content/en-cost.mjs` 的 "what to check first" 表，各补一行后重新生成。
 - 修改六种语言的首页文案：编辑 `tools/build.py` 中的 `T` 字典。
 - 修改 100 篇指南：编辑 `content/` 下对应模块（`zh-unboxing.mjs`、`zh-compare.mjs`、`zh-reverse.mjs`、`zh-tutorial.mjs`、`en-cost.mjs`），然后执行 `node tools/build-guides.mjs`。生成器强制要求正好 100 篇、slug 唯一、同语言相关链接可解析；增删文章时需同步更新数量校验与关联链接。
 - `tools/build.py` 负责六个首页、`sitemap.xml` 和 `robots.txt`；`tools/build-guides.mjs` 负责指南页、两个指南中心页、`sitemap-guides.xml` 和 `llms.txt`。`build.py` 不再覆盖 `llms.txt`，单独运行不会清掉指南索引。

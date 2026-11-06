@@ -1,6 +1,6 @@
 # ShipSaver — Cainiao Shipping Promo Code Guide
 
-A **static, six-language Cainiao shipping guide** for seven international consolidated-shipping destinations: a coupon directory plus a **100-article guide library** (80 Chinese, 20 English). The published website uses only HTML, CSS and vanilla JavaScript. No backend, database, API, login, analytics or runtime build step is required. Node.js is used only as an optional offline authoring tool for the guide pages.
+A **static, six-language Cainiao shipping guide** for nine international consolidated-shipping destinations: a coupon directory plus a **100-article guide library** (80 Chinese, 20 English). The published website uses only HTML, CSS and vanilla JavaScript. No backend, database, API, login, analytics or runtime build step is required. Node.js is used only as an optional offline authoring tool for the guide pages.
 
 > **Important — coupon verification and affiliation:** The codes and advertised 85折 (15% off) were supplied by the site publisher and have **not** been independently verified against an authoritative Cainiao promotion notice. **Do not claim "official channel codes", guaranteed savings, a current expiry date, or Cainiao authorization without evidence.** The website clearly identifies itself as an independent information guide and directs users to Cainiao's own domain for transactions.
 
@@ -27,7 +27,7 @@ The guide library covers five content pillars:
 | Consolidation tutorials | 20 | — | Step-by-step packing, declaration, tracking and delivery workflows |
 | Cost and promo-code guides | — | 20 | Destination-specific savings, including the supplied `AUONLY`/`USONLY`/`JPONLY` code article |
 
-All six home pages, both guide hubs and every one of the 100 guide pages contain all seven destination-specific promo codes. Guide pages repeat them in a dark, copy-enabled strip directly below the article hero, with the page's own destination highlighted:
+All six home pages, both guide hubs and every one of the 100 guide pages contain all nine destination-specific promo codes. Guide pages repeat them in a dark, copy-enabled strip directly below the article hero, with the page's own destination highlighted:
 
 | Destination | Code |
 |---|---|
@@ -37,9 +37,11 @@ All six home pages, both guide hubs and every one of the 100 guide pages contain
 | Japan | `JPONLY` |
 | Singapore | `SG5BSE` |
 | Thailand | `THONLY` |
+| Taiwan | `TW8LLQ` |
+| Malaysia | `MYONLY` |
 | Russia | `RUONLY` |
 
-Features: destination search, one-click copy, responsive cards, a seven-code strip on every guide page, usage instructions, accessibility support, FAQ answers, JSON-LD `WebSite`/`WebPage`/`FAQPage`/`ItemList`, `hreflang`, self-canonical links, Open Graph image, XML sitemaps, robots rules, basic HTTP security headers. The 100 guide pages add `Article`/`BreadcrumbList`/`FAQPage`/`HowTo` structured data, tables of contents, source notes and same-language related links. Static HTML is readable by search bots and text-first AI retrieval systems without executing JavaScript.
+Features: destination search, one-click copy, responsive cards, a nine-code strip on every guide page, usage instructions, accessibility support, FAQ answers, JSON-LD `WebSite`/`WebPage`/`FAQPage`/`ItemList`, `hreflang`, self-canonical links, Open Graph image, XML sitemaps, robots rules, basic HTTP security headers. The 100 guide pages add `Article`/`BreadcrumbList`/`FAQPage`/`HowTo` structured data, tables of contents, source notes and same-language related links. Static HTML is readable by search bots and text-first AI retrieval systems without executing JavaScript.
 
 ## Repository layout
 
@@ -197,6 +199,9 @@ Editorial rules used by the library:
 ## Update the codes or content
 
 - Codes, country names, content date, authoritative service link and canonical domain are in `site-data.json`. Update there and run `python tools/build.py`, then `node tools/build-guides.mjs`.
+- **Adding a destination is a one-file change.** Append one destination object (slug, flag, code, six locale names, synonyms) to the `destinations` array in `site-data.json` and run both generators. Counts, landing-page titles/descriptions, every guide-page code strip and hub statistic, `llms.txt`, JSON-LD item lists and the `codeTable`/token-driven lists inside articles all update automatically. `tools/make_social_card.py` also reads the JSON and auto-fits the prefix line width.
+- Authoring tokens available in `content/*.mjs` (expanded at build time from `site-data.json`): `{{dest_count}}`, `{{names:zh}}`, `{{names:en}}`, `{{codes:zh}}`, `{{codes:en}}`, `{{code_list:en}}`, `{{code_prefixes}}`, `{{code_for:en}}`; a `codeTable: { caption }` section renders the full destination/code table without hand-written rows.
+- The only manual spots after adding a destination are the two editorial tables with per-country notes — the address-format table in `content/zh-reverse.mjs` and the "what to check first" table in `content/en-cost.mjs` — because their note columns are hand-written. Add one row each, then rerun the guide generator.
 - The text of the six locale landing pages lives in the `T` dictionary in `tools/build.py`, near the top. Edit locale strings, then run the generator.
 - Guide articles live in `content/`. Edit the relevant module, then run `node tools/build-guides.mjs`. The generator enforces exactly 100 guides, so adding or removing an article also means updating the count check, the related-link graph and any hub copy.
 - The generated HTML files at the repository root are ready to edit directly, but regeneration overwrites such manual edits. Do not edit generated HTML and then run the generator without porting edits to its templates.
@@ -214,11 +219,11 @@ Editorial rules used by the library:
 
 ## Quick checks before launch
 
-- [ ] Check all seven codes in actual eligible country accounts / Cainiao checkout.
+- [ ] Check all nine codes in actual eligible country accounts / Cainiao checkout.
 - [ ] Confirm which shipping methods, accounts, discounts, caps and expiry dates apply.
 - [ ] If you claim “official code,” obtain a primary Cainiao promotion page or documented authorization.
 - [ ] Set real HTTPS canonical domain using `tools/set_domain.py`.
-- [ ] Preview all six locales and all seven copy buttons on desktop/mobile.
+- [ ] Preview all six locales and all nine copy buttons on desktop/mobile.
 - [ ] Confirm correct routing on `/`, `/en/`, `/ja/`, `/th/`, `/ru/`, `/fr-ca/`, `/guides/` and `/en/guides/`.
 - [ ] Spot-check several guide pages: table of contents, tables, FAQ, related links and the promo-code disclaimer.
 - [ ] Confirm `sitemap-guides.xml` contains 102 URLs (two hubs + 100 articles) and is listed in `robots.txt`.

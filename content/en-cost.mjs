@@ -27,7 +27,7 @@ export default [
         h: 'What changed: I started comparing the shipping step',
         p: [
           'Recently I started comparing different shipping options instead of accepting the first quote. That is when I noticed something easy to miss: some forwarding services occasionally have regional promo codes.',
-          'They are not always obvious. Sometimes they only work for specific destination countries, and sometimes the code field is buried near the end of checkout. If you are shipping to places like Australia, the US, Canada, Japan, Singapore, Thailand or Russia, there may be destination-specific codes available during promotions.'
+          'They are not always obvious. Sometimes they only work for specific destination countries, and sometimes the code field is buried near the end of checkout. If you are shipping to places like {{names:en}}, there may be destination-specific codes available during promotions.'
         ]
       },
       {
@@ -35,18 +35,8 @@ export default [
         p: [
           'A few examples I found while organising my notes. I am listing them exactly as I recorded them, not as a guarantee that they are active today.'
         ],
-        table: {
-          caption: 'Destination-specific codes from my notes (unverified)',
-          head: ['Destination', 'Code'],
-          rows: [
-            ['Australia', 'AUONLY'],
-            ['United States', 'USONLY'],
-            ['Canada', 'CAONLY'],
-            ['Japan', 'JPONLY'],
-            ['Singapore', 'SG5BSE'],
-            ['Thailand', 'THONLY'],
-            ['Russia', 'RUONLY']
-          ]
+        codeTable: {
+          caption: 'Destination-specific codes from my notes (unverified)'
         },
         note: { type: 'warn', text: 'I am not sure how long these will stay active. Check whether they actually apply before submitting payment. A code that worked last month may be dead today.' }
       },
@@ -68,7 +58,7 @@ export default [
       {
         h: 'Why I made a reference page',
         p: [
-          'I kept forgetting which code belonged to which country, so I made a small reference page for myself. It lists the seven destinations and the code I recorded for each one, with a copy button and a reminder to verify at checkout.',
+          'I kept forgetting which code belonged to which country, so I made a small reference page for myself. It lists the {{dest_count}} destinations and the code I recorded for each one, with a copy button and a reminder to verify at checkout.',
           'I am sharing it here in case anyone else is also importing random stuff from China: https://cainiao-coupons.biggemedtech.com/',
           'It is an independent guide, not an official Cainiao channel. The codes and the advertised discount are publisher-supplied and have not been independently verified. Treat it as a starting point, not a promise.'
         ]
@@ -95,7 +85,7 @@ export default [
       { q: 'Is this an official Cainiao site?', a: 'No. It is an independent information guide with no verified official affiliation. Use Cainiao’s own domain for transactions.' }
     ],
     related: ['cainiao-promo-codes-explained', 'verify-destination-promo-code', 'consolidation-vs-direct-shipping'],
-    cta: { h: 'Check the code for your destination', p: 'Seven destinations, one-click copy, and a verification checklist for checkout.' }
+    cta: { h: 'Check the code for your destination', p: '{{dest_count}} destinations, one-click copy, and a verification checklist for checkout.' }
   },
   {
     slug: 'cainiao-promo-codes-explained',
@@ -103,10 +93,10 @@ export default [
     pillar: 'cost',
     title: 'Cainiao Promo Codes Explained: AUONLY, USONLY, CAONLY and More',
     h1: 'Cainiao promo codes explained, destination by destination',
-    desc: 'What destination-specific Cainiao shipping codes like AUONLY, USONLY, CAONLY, JPONLY, SG5BSE, THONLY and RUONLY mean, and how to test them at checkout.',
+    desc: 'What destination-specific Cainiao shipping codes like {{code_list:en}} mean, and how to test them at checkout.',
     lead: 'These codes are not universal coupons. Each one is tied to a destination, and that is the first reason a code “does not work”.',
     takeaways: [
-      'The suffix usually signals the destination: AU, US, CA, JP, SG, TH, RU.',
+      'The suffix usually signals the destination: {{code_prefixes}}.',
       'A destination match is necessary but not sufficient — route, account and minimum spend also matter.',
       'The only proof a code works is a lower total before payment.'
     ],
@@ -114,7 +104,7 @@ export default [
       {
         h: 'What the codes have in common',
         p: [
-          'The seven codes in this guide follow a simple pattern: a destination prefix plus a short suffix. AUONLY for Australia, USONLY for the United States, CAONLY for Canada, JPONLY for Japan, SG5BSE for Singapore, THONLY for Thailand, RUONLY for Russia.',
+          'The {{dest_count}} codes in this guide follow a simple pattern: a destination prefix plus a short suffix. {{code_for:en}}.',
           'That pattern is useful for remembering which code belongs where, but it is not proof that the code is live. Promotions expire, get capped, or apply only to certain shipping routes.'
         ]
       },
@@ -131,6 +121,8 @@ export default [
             ['Japan', 'JPONLY', 'Address details, food/cosmetics limits'],
             ['Singapore', 'SG5BSE', 'GST handling, 6-digit postcode'],
             ['Thailand', 'THONLY', 'Import tax, restricted categories'],
+            ['Taiwan', 'TW8LLQ', 'Address format, import duty threshold'],
+            ['Malaysia', 'MYONLY', 'SST threshold, restricted categories'],
             ['Russia', 'RUONLY', 'Current route availability, payment']
           ]
         }

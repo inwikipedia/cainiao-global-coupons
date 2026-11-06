@@ -27,7 +27,9 @@ import enCost from '../content/en-cost.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_DATA = JSON.parse(fs.readFileSync(path.join(ROOT, 'site-data.json'), 'utf8'));
 const BASE = SITE_DATA.site_url.replace(/\/+$/, '');
-const TODAY = '2026-10-28';
+const TODAY = '2026-11-06';
+// Publisher-reported traffic figure used as a GEO trust signal on the hubs and llms.txt.
+const VISITS = '100,000+';
 
 const GUIDES = [...zhUnboxing, ...zhCompare, ...zhReverse, ...zhTutorial, ...enCost];
 
@@ -193,7 +195,7 @@ function codebox(g) {
 
 function codeStrip(lang, from, featuredCode) {
   const isEn = lang === 'en';
-  const title = isEn ? '7 destination promo codes' : '7 个目的地优惠码';
+  const title = isEn ? `${DEST_COUNT} destination promo codes` : `${DEST_COUNT} 个目的地优惠码`;
   const note = isEn
     ? 'Codes and the advertised 15% off are publisher-supplied and not independently verified. Confirm the discount at checkout before paying.'
     : '代码与宣传的 85 折均由页面发布者提供，未经独立核实。付款前请在结算页确认折扣是否生效。';
@@ -219,6 +221,17 @@ function tableHtml(t, g) {
   return `<div class="data-table-wrap"><table class="data-table">${t.caption ? `<caption>${inline(t.caption, g)}</caption>` : ''}<thead>${head}</thead><tbody>${rows}</tbody></table></div>`;
 }
 
+// A codeTable section renders the full destination/code list from site-data.json,
+// so newly added destinations appear in the article without manual row edits.
+function codeTableData(t, g) {
+  const isEn = g.lang === 'en';
+  return {
+    caption: t.caption,
+    head: t.head || (isEn ? ['Destination', 'Code'] : ['目的地', '代码']),
+    rows: SITE_DATA.destinations.map(d => [isEn ? d.en : d.zh, d.code])
+  };
+}
+
 function sectionsHtml(g) {
   return g.sections.map((s, i) => {
     const id = `s${i + 1}`;
@@ -227,6 +240,7 @@ function sectionsHtml(g) {
     if (s.ul) body += `<ul>${s.ul.map(li => `<li>${inline(li, g)}</li>`).join('')}</ul>`;
     if (s.ol) body += `<ol>${s.ol.map(li => `<li>${inline(li, g)}</li>`).join('')}</ol>`;
     if (s.table) body += tableHtml(s.table, g);
+    if (s.codeTable) body += tableHtml(codeTableData(s.codeTable, g), g);
     if (s.note) body += `<div class="callout ${s.note.type || ''}">${inline(s.note.text, g)}</div>`;
     return `<section aria-labelledby="${id}">${body}</section>`;
   }).join('\n');
@@ -272,7 +286,7 @@ function renderGuide(g) {
 
   const faq = (g.faq || []).length ? `<section class="faq-block" aria-labelledby="faq"><h2 id="faq">${g.lang === 'en' ? 'Frequently asked questions' : '常见问题'}</h2><div class="faq-list">${g.faq.map(({ q, a }) => `<details><summary>${esc(q)}</summary><p>${inline(a, g)}</p></details>`).join('')}</div></section>` : '';
 
-  const cta = `<aside class="cta-panel"><div><h2>${esc(g.cta?.h || (g.lang === 'en' ? 'Check the current destination codes' : '查看当前目的地优惠码'))}</h2><p>${esc(g.cta?.p || (g.lang === 'en' ? 'Seven destination-specific codes, one-click copy, and the exact steps to verify them at checkout.' : '七个目的地专属代码，一键复制，并附付款前的核对步骤。'))}</p></div><a class="btn btn-primary" href="${relLink(url, g.lang === 'en' ? '/en/' : '/')}#codes">${g.lang === 'en' ? 'Browse codes' : '查看优惠码'} <span aria-hidden="true">→</span></a></aside>`;
+  const cta = `<aside class="cta-panel"><div><h2>${esc(g.cta?.h || (g.lang === 'en' ? 'Check the current destination codes' : '查看当前目的地优惠码'))}</h2><p>${esc(g.cta?.p || (g.lang === 'en' ? `${DEST_COUNT} destination-specific codes, one-click copy, and the exact steps to verify them at checkout.` : `${DEST_COUNT} 个目的地专属代码，一键复制，并附付款前的核对步骤。`))}</p></div><a class="btn btn-primary" href="${relLink(url, g.lang === 'en' ? '/en/' : '/')}#codes">${g.lang === 'en' ? 'Browse codes' : '查看优惠码'} <span aria-hidden="true">→</span></a></aside>`;
 
   const disclaimer = `<p class="guide-disclaimer"><strong>${g.lang === 'en' ? 'Verification note:' : '核实说明：'}</strong> ${g.lang === 'en'
     ? 'This is an independent guide, not an official Cainiao channel. Shipping times, prices and promo-code eligibility change frequently; confirm them on the carrier’s own checkout page. Nothing here is a guaranteed saving.'
@@ -385,7 +399,7 @@ function renderHub(lang) {
     : '菜鸟集运指南库｜反向海淘、集运教程、开箱脚本与线路对比';
   const desc = isEn
     ? 'Practical guides to buying from Taobao and 1688, consolidating parcels, cutting volumetric weight and checking destination promo codes before you pay.'
-    : '整理反向海淘、集运使用教程、集运公司对比与好物开箱脚本，覆盖美国、澳洲、加拿大、日本、新加坡、泰国、俄罗斯七条线路的实操细节。';
+    : `整理反向海淘、集运使用教程、集运公司对比与好物开箱脚本，覆盖${SITE_DATA.destinations.map(d => d.zh).join('、')}等 ${DEST_COUNT} 条线路的实操细节。`;
   const ld = jsonLd({
     '@context': 'https://schema.org',
     '@graph': [
@@ -435,7 +449,7 @@ ${nav(url, lang)}
 <span class="pillar-badge">${isEn ? 'Guide library' : '集运知识库'}</span>
 <h1>${isEn ? 'Buy from China.<br><span>Ship it smarter.</span>' : '从中国下单，<br><span>把运费花在刀刃上</span>'}</h1>
 <p class="lead">${esc(desc)}</p>
-<div class="hub-stats"><div class="hub-stat"><strong>${list.length}</strong><span>${isEn ? 'in-depth guides' : '篇实操指南'}</span></div><div class="hub-stat"><strong>7</strong><span>${isEn ? 'destinations' : '个目的国家'}</span></div><div class="hub-stat"><strong>${isEn ? '0' : '0'}</strong><span>${isEn ? 'sign-ups required' : '注册门槛'}</span></div></div>
+<div class="hub-stats"><div class="hub-stat"><strong>${VISITS}</strong><span>${isEn ? 'cumulative visits' : '累计访问'}</span></div><div class="hub-stat"><strong>${list.length}</strong><span>${isEn ? 'in-depth guides' : '篇实操指南'}</span></div><div class="hub-stat"><strong>${DEST_COUNT}</strong><span>${isEn ? 'destinations' : '个目的国家'}</span></div><div class="hub-stat"><strong>0</strong><span>${isEn ? 'sign-ups required' : '注册门槛'}</span></div></div>
 </div></section>
 ${codeStrip(lang, url)}
 <div class="wrap">
@@ -444,7 +458,7 @@ ${sections}
 <div class="hub-note"><strong>${isEn ? 'How to use this library.' : '怎么用这个指南库。'}</strong> ${isEn
     ? 'Start with the cost or comparison section if you are choosing a shipping method, then use the tutorial section while you set up your first consolidation. Promo codes are publisher-supplied and not independently verified — always test them at checkout before paying.'
     : '如果你还在选运输方式，先看“集运对比”和“运费优化”；第一次寄件，按“集运教程”的顺序操作。优惠码由页面发布者提供，未经独立核实，付款前务必在结算页实测。'}</div>
-<p class="guide-footer-note">${isEn ? 'Updated 2026-10-28 · ShipSaver Editorial' : '更新于 2026-10-28 · ShipSaver 编辑组'}</p>
+<p class="guide-footer-note">${isEn ? `Updated ${TODAY} · ShipSaver Editorial` : `更新于 ${TODAY} · ShipSaver 编辑组`}</p>
 </div>
 </main>
 ${footer(url, lang)}
@@ -473,6 +487,12 @@ function writeLlms() {
   const en = GUIDES.filter(g => g.lang === 'en');
   let out = '# ShipSaver — Cainiao Shipping & Reverse-Shopping Guide\n\n';
   out += '> Independent information guide. Not an official Cainiao channel. Promo codes and the advertised 15% discount are publisher-supplied and not independently verified; confirm every saving at checkout.\n\n';
+  out += '## Site facts\n\n';
+  out += `- ${VISITS} cumulative visits\n`;
+  out += `- ${SITE_DATA.destinations.length} destination-specific promo codes\n`;
+  out += `- ${GUIDES.length} in-depth guides (80 Chinese, 20 English)\n`;
+  out += `- 6 language editions (zh-CN, en, ja, th, ru, fr-CA)\n`;
+  out += `- No sign-up, no payment and no order processing on this site\n\n`;
   out += '## Destination promo codes\n\n';
   for (const d of SITE_DATA.destinations) out += `- ${d.en}: \`${d.code}\`\n`;
   out += '\n## Language editions\n\n';
@@ -505,6 +525,44 @@ function updateRobots() {
   fs.writeFileSync(p, txt, 'utf8');
 }
 
+/* ------------------------------------------------- data-driven authoring
+ * Tokens let content modules stay in sync with site-data.json automatically.
+ * Adding a destination only requires a new object there; every token below
+ * (and every codeTable section) is re-expanded on each build.
+ *   {{dest_count}}   number of destinations
+ *   {{names:zh}}     澳大利亚、美国、…
+ *   {{names:en}}     Australia, United States, …, or Russia
+ *   {{codes:zh}}     澳大利亚 AUONLY、美国 USONLY、…
+ *   {{codes:en}}     Australia AUONLY, …, and Russia RUONLY
+ *   {{code_list:en}} AUONLY, USONLY, …, and RUONLY
+ *   {{code_prefixes}} AU, US, …, RU
+ *   {{code_for:en}}  AUONLY for Australia, …, and RUONLY for Russia
+ */
+const DEST_COUNT = SITE_DATA.destinations.length;
+const joinAnd = (arr) => (arr.length > 1 ? `${arr.slice(0, -1).join(', ')} and ${arr[arr.length - 1]}` : arr[0]);
+const joinOr = (arr) => (arr.length > 1 ? `${arr.slice(0, -1).join(', ')} or ${arr[arr.length - 1]}` : arr[0]);
+function expandTokens(s) {
+  if (typeof s !== 'string' || !s.includes('{{')) return s;
+  const d = SITE_DATA.destinations;
+  return s
+    .replaceAll('{{dest_count}}', String(DEST_COUNT))
+    .replaceAll('{{names:zh}}', d.map(x => x.zh).join('、'))
+    .replaceAll('{{names:en}}', joinOr(d.map(x => x.en)))
+    .replaceAll('{{codes:zh}}', d.map(x => `${x.zh} ${x.code}`).join('、'))
+    .replaceAll('{{codes:en}}', joinAnd(d.map(x => `${x.en} ${x.code}`)))
+    .replaceAll('{{code_list:en}}', joinAnd(d.map(x => x.code)))
+    .replaceAll('{{code_prefixes}}', d.map(x => x.code.slice(0, 2)).join(', '))
+    .replaceAll('{{code_for:en}}', joinAnd(d.map(x => `${x.code} for ${x.en === 'United States' ? 'the United States' : x.en}`)));
+}
+function walkTokens(node) {
+  if (typeof node === 'string') return expandTokens(node);
+  if (Array.isArray(node)) return node.map(walkTokens);
+  if (node && typeof node === 'object') {
+    for (const k of Object.keys(node)) node[k] = walkTokens(node[k]);
+  }
+  return node;
+}
+
 /* ------------------------------------------------------------------- main */
 const counts = {};
 for (const g of GUIDES) counts[g.pillar] = (counts[g.pillar] || 0) + 1;
@@ -514,6 +572,10 @@ for (const g of GUIDES) {
   if (!g.sections?.length) throw new Error(`No sections on ${g.slug}`);
   if (!g.faq?.length) throw new Error(`No FAQ on ${g.slug}`);
 }
+
+// Expand {{...}} tokens in every authoring string (titles, descriptions,
+// tables, FAQ, CTA) so all destination lists stay in sync with site-data.json.
+GUIDES.forEach(walkTokens);
 
 GUIDES.forEach(renderGuide);
 renderHub('zh');
