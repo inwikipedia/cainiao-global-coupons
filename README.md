@@ -189,6 +189,8 @@ node tools/build-guides.mjs
 
 `build.py` no longer writes `llms.txt`, so running it alone will not erase the guide index. The committed HTML is already up to date; neither command is needed to deploy.
 
+**Asset cache-busting:** the production domain sits behind Cloudflare, which caches `style.css`/`guide.css` by URL. Whenever you change either stylesheet, bump `ASSET_VER` in `tools/build.py` and `tools/build-guides.mjs` (same value, e.g. a date stamp) and regenerate — the rendered `<link>` URLs become `*.css?v=<ASSET_VER>`, a new cache key that forces browsers and the edge to fetch the new CSS. Without the bump, newly added CSS classes can render unstyled.
+
 Editorial rules used by the library:
 
 - Unboxing pages are **production scripts**, not claims that the author personally bought or received each item.

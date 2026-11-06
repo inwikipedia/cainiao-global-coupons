@@ -33,6 +33,8 @@ fr_codes=_join([f"{c['fr-ca']} {c['code']}" for c in D['destinations']],' et ')
 # thousands separators. GUIDE_COUNT is enforced by tools/build-guides.mjs.
 VISITS={'zh':'100,000+','en':'100,000+','ja':'100,000+','th':'100,000+','ru':'100 000+','fr-ca':'100 000+'}
 GUIDE_COUNT=100
+# Bump whenever assets/style.css changes so Cloudflare/browser caches fetch the new file.
+ASSET_VER='20261106'
 T={
 'zh':{
  'title':f'菜鸟集运85折优惠码｜{zh_names}',
@@ -160,7 +162,7 @@ def build(locale):
 <meta property="og:image" content="{h(BASE+'/assets/social-card.png')}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{P}assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{P}assets/style.css">
+<link rel="stylesheet" href="{P}assets/style.css?v={ASSET_VER}">
 <script type="application/ld+json">{data}</script>
 <script src="{P}assets/app.js" defer></script>
 </head>

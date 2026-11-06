@@ -30,6 +30,8 @@ const BASE = SITE_DATA.site_url.replace(/\/+$/, '');
 const TODAY = '2026-11-06';
 // Publisher-reported traffic figure used as a GEO trust signal on the hubs and llms.txt.
 const VISITS = '100,000+';
+// Bump whenever assets/*.css changes so Cloudflare/browser caches fetch the new file.
+const ASSET_VER = '20261106';
 
 const GUIDES = [...zhUnboxing, ...zhCompare, ...zhReverse, ...zhTutorial, ...enCost];
 
@@ -120,8 +122,8 @@ function jsonLd(obj) {
 /* --------------------------------------------------------------- fragments */
 function head({ lang, title, desc, canonical, ogType, published, modified, extraLd, from }) {
   const root = relLink(from, '/');
-  const css = relLink(from, '/assets/style.css');
-  const guideCss = relLink(from, '/assets/guide.css');
+  const css = relLink(from, '/assets/style.css') + '?v=' + ASSET_VER;
+  const guideCss = relLink(from, '/assets/guide.css') + '?v=' + ASSET_VER;
   const icon = relLink(from, '/assets/favicon.svg');
   const img = BASE + '/assets/social-card.png';
   return `<!doctype html>

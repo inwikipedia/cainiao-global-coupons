@@ -54,6 +54,7 @@ git push -u origin master
 - 修改六种语言的首页文案：编辑 `tools/build.py` 中的 `T` 字典。
 - 修改 100 篇指南：编辑 `content/` 下对应模块（`zh-unboxing.mjs`、`zh-compare.mjs`、`zh-reverse.mjs`、`zh-tutorial.mjs`、`en-cost.mjs`），然后执行 `node tools/build-guides.mjs`。生成器强制要求正好 100 篇、slug 唯一、同语言相关链接可解析；增删文章时需同步更新数量校验与关联链接。
 - `tools/build.py` 负责六个首页、`sitemap.xml` 和 `robots.txt`；`tools/build-guides.mjs` 负责指南页、两个指南中心页、`sitemap-guides.xml` 和 `llms.txt`。`build.py` 不再覆盖 `llms.txt`，单独运行不会清掉指南索引。
+- **静态资源缓存版本号：** 生产域名在 Cloudflare 后面，`style.css`/`guide.css` 会按 URL 被边缘缓存。每次修改这两个样式表，必须同步调大 `tools/build.py` 和 `tools/build-guides.mjs` 里的 `ASSET_VER`（建议用日期戳，两边保持一致）再重新生成，页面会输出 `*.css?v=版本号` 的新链接，强制浏览器和 Cloudflare 拉新文件；不升级版本号，新加的 CSS 类可能完全没有样式。
 - 可以直接修改根目录下的 HTML，但以后重新运行生成脚本会覆盖手工编辑。
 - 可选本地预览：在仓库根目录执行 `python -m http.server 8080`（或任意静态服务器），浏览器打开 `http://localhost:8080`。
 
